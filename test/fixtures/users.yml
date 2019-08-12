@@ -3,3 +3,5 @@
 user:
   email: user@example.com
   encrypted_password: <%= ENV.fetch('RAILS_USER_PASSWORD') %>
+  first_name: First
+  last_name: User
