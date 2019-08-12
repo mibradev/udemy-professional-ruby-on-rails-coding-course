@@ -8,4 +8,7 @@
 
 User.create!(email: 'user@example.com', password: ENV.fetch('RAILS_USER_PASSWORD'), first_name: 'First', last_name: 'User')
 AdminUser.create!(email: 'admin@example.com', password: ENV.fetch('RAILS_USER_PASSWORD'), first_name: 'First', last_name: 'Admin')
-Post.create!(date: Date.current, rationale: "Rationale text.")
+
+100.times do |i|
+  Post.create!(date: Date.current, rationale: "Post #{i + 1} rationale.")
+end
