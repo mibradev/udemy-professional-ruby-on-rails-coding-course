@@ -15,5 +15,6 @@ class PostsTest < ApplicationSystemTestCase
     fill_in "Date", with: @post.date
     fill_in "Rationale", with: @post.rationale
     click_on "Create Post"
+    assert_text "Post was successfully created"
   end
 end
