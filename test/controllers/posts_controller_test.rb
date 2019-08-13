@@ -1,8 +1,11 @@
 require 'test_helper'
 
 class PostsControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   def setup
     @post = posts(:one)
+    sign_in users(:user)
   end
 
   test "should get index" do
