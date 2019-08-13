@@ -9,6 +9,11 @@ class PostTest < ActiveSupport::TestCase
     assert @post.valid?
   end
 
+  test "should have user" do
+    @post.user_id = nil
+    assert_not @post.valid?
+  end
+
   test "should have date" do
     @post.date = nil
     assert_not @post.valid?
