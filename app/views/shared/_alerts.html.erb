@@ -1,19 +1,23 @@
 <% if notice.present? %>
-  <div class="alert alert-info alert-dismissible fade show" role="alert">
-    <%= notice %>
+  <div class="alert alert-info alert-dismissible fade show px-0 border-0 rounded-0 mb-0" role="alert">
+    <div class="container">
+      <%= notice %>
 
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
   </div>
 <% end %>
 
 <% if alert.present? %>
-  <div class="alert alert-warning alert-dismissible fade show" role="alert">
-    <%= alert %>
+  <div class="alert alert-warning alert-dismissible fade show px-0 border-0 rounded-0 mb-0" role="alert">
+    <div class="container">
+      <%= alert %>
 
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
   </div>
 <% end %>

@@ -1,7 +1,11 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
   <head>
-    <title>UdemyProfessionalRubyOnRailsCodingCourse</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Time Tracker</title>
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -11,7 +15,11 @@
 
   <body>
     <%= render 'shared/alerts' %>
+    <%= render 'shared/header' %>
+    <%= render 'shared/navbar' if user_signed_in? %>
 
-    <%= yield %>
+    <div class="container mt-4">
+      <%= yield %>
+    </div>
   </body>
 </html>
