@@ -1,4 +1,12 @@
-<h2 class="mb-4">Post #<%= @post.id %></h2>
+<div class="row mb-4">
+  <div class="col">
+    <h2 class="mb-0">Post #<%= @post.id %></h2>
+  </div>
+
+  <div class="col text-right">
+    <%= link_to 'Edit', edit_post_path(@post), class: 'btn btn-primary' %>
+  </div>
+</div>
 
 <dl>
   <dt>Date</dt>

@@ -76,4 +76,13 @@ class PostsTest < ApplicationSystemTestCase
     page.accept_confirm { click_on "Delete", match: :first }
     assert_text "Post was successfully destroyed"
   end
+
+  test "navigating between show and edit" do
+    visit post_url(@post)
+    assert_current_path post_path(@post)
+    click_on "Edit"
+    assert_current_path edit_post_path(@post)
+    click_on "Show"
+    assert_current_path post_path(@post)
+  end
 end
