@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:edit]
+  before_action :set_post, only: [:edit, :update]
 
   def index
     @posts = Post.includes(:user)
@@ -30,6 +30,15 @@ class PostsController < ApplicationController
   end
 
   def update
+    respond_to do |format|
+      if @post.update(post_params)
+        format.html { redirect_to @post, notice: 'Post was successfully updated.' }
+        format.json { render :show, status: :ok, location: @post }
+      else
+        format.html { render :edit }
+        format.json { render json: @post.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   private
