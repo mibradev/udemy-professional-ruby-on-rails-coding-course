@@ -1,4 +1,12 @@
-<h2 class="mb-4">Posts</h2>
+<div class="row mb-4">
+  <div class="col">
+    <h2 class="mb-4">Posts</h2>
+  </div>
+
+  <div class="col text-right">
+    <%= link_to 'New Post', new_post_path, class: 'btn btn-success' %>
+  </div>
+</div>
 
 <% unless @posts.any? %>
   <p>No posts found.</p>

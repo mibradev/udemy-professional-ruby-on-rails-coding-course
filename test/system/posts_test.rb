@@ -28,7 +28,8 @@ class PostsTest < ApplicationSystemTestCase
   end
 
   test "creating a Post" do
-    visit new_post_url
+    visit posts_url
+    click_on "New Post"
     fill_in "Date", with: @post.date
     fill_in "Rationale", with: @post.rationale
     click_on "Create Post"
