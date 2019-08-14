@@ -15,7 +15,7 @@ class PostsTest < ApplicationSystemTestCase
     assert_selector "table th", text: "Rationale"
     assert_selector "table th", text: @post.id
     assert_selector "table td", text: @post.date
-    assert_selector "table td", text: "#{@post.user.first_name} #{@post.user.last_name}"
+    assert_selector "table td", text: @post.user.full_name
     assert_selector "table td", text: @post.rationale
   end
 

@@ -1,6 +1,6 @@
 <tr>
   <th><%= post.id %></th>
   <td><%= post.date %></td>
-  <td><%= "#{post.user.first_name} #{post.user.last_name}" %></td>
+  <td><%= post.user.full_name %></td>
   <td><%= truncate post.rationale %></td>
 </tr>
