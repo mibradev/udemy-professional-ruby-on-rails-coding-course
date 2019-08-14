@@ -1,1 +1,22 @@
-<h1>Posts</h1>
+<h2 class="mb-4">Posts</h2>
+
+<% unless @posts.any? %>
+  <p>No posts found.</p>
+<% else %>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Date</th>
+          <th scope="col">User</th>
+          <th scope="col">Rationale</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <%= render @posts %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
