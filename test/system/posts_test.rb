@@ -46,6 +46,7 @@ class PostsTest < ApplicationSystemTestCase
     assert_text "Date #{I18n.t('errors.messages.blank')}"
     assert_text "Rationale #{I18n.t('errors.messages.blank')}"
 
+    assert_selector "h2", text: "New Post"
     fill_in "Date", with: @post.date
     fill_in "Rationale", with: @post.rationale
     click_on "Create Post"
@@ -63,6 +64,7 @@ class PostsTest < ApplicationSystemTestCase
     assert_text "Date #{I18n.t('errors.messages.blank')}"
     assert_text "Rationale #{I18n.t('errors.messages.blank')}"
 
+    assert_selector "h2", text: "Editing Post ##{@post.id}"
     fill_in "Date", with: @post.date
     fill_in "Rationale", with: @post.rationale
     click_on "Update Post"
