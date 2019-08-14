@@ -3,5 +3,10 @@
   <td><%= post.date %></td>
   <td><%= post.user.full_name %></td>
   <td><%= truncate post.rationale %></td>
-  <td class="text-right"><%= link_to 'Edit', edit_post_path(post), class: 'btn btn-outline-primary btn-sm' %></td>
+  <td class="text-right">
+    <div class="btn-group">
+      <%= link_to 'Edit', edit_post_path(post), class: 'btn btn-outline-primary btn-sm' %>
+      <%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger btn-sm' %>
+    </div>
+  </td>
 </tr>

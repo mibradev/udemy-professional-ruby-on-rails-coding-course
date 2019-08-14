@@ -44,4 +44,10 @@ class PostsTest < ApplicationSystemTestCase
     click_on "Update Post"
     assert_text "Post was successfully updated"
   end
+
+  test "destroying a Post" do
+    visit posts_url
+    page.accept_confirm { click_on "Delete", match: :first }
+    assert_text "Post was successfully destroyed"
+  end
 end

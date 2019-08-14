@@ -40,4 +40,12 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     patch post_url(@post), params: { post: { date: @post.date, rationale: @post.rationale } }
     assert_redirected_to post_url(@post)
   end
+
+  test "should destroy post" do
+    assert_difference('Post.count', -1) do
+      delete post_url(@post)
+    end
+
+    assert_redirected_to posts_url
+  end
 end
