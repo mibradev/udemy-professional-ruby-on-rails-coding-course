@@ -27,6 +27,16 @@ class PostsTest < ApplicationSystemTestCase
     assert_no_selector "table"
   end
 
+  test "showing the post" do
+    visit posts_url
+    click_on "Show", match: :first
+    assert_selector "h2", text: "Post ##{@post.id}"
+    assert_selector "dt", text: "Date"
+    assert_selector "dt", text: "Rationale"
+    assert_selector "dd", text: @post.date
+    assert_selector "dd", text: @post.rationale
+  end
+
   test "creating a Post" do
     visit posts_url
     click_on "New Post"

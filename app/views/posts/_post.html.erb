@@ -5,6 +5,7 @@
   <td><%= truncate post.rationale %></td>
   <td class="text-right">
     <div class="btn-group">
+      <%= link_to 'Show', post, class: 'btn btn-outline-success btn-sm' %>
       <%= link_to 'Edit', edit_post_path(post), class: 'btn btn-outline-primary btn-sm' %>
       <%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger btn-sm' %>
     </div>
