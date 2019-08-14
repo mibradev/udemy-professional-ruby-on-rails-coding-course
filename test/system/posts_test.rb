@@ -40,6 +40,12 @@ class PostsTest < ApplicationSystemTestCase
   test "creating a Post" do
     visit posts_url
     click_on "New Post"
+
+    click_on "Create Post"
+    assert_text "2 errors prohibited this record from being saved:"
+    assert_text "Date #{I18n.t('errors.messages.blank')}"
+    assert_text "Rationale #{I18n.t('errors.messages.blank')}"
+
     fill_in "Date", with: @post.date
     fill_in "Rationale", with: @post.rationale
     click_on "Create Post"
@@ -49,6 +55,14 @@ class PostsTest < ApplicationSystemTestCase
   test "updating a Post" do
     visit posts_url
     click_on "Edit", match: :first
+
+    fill_in "Date", with: nil
+    fill_in "Rationale", with: nil
+    click_on "Update Post"
+    assert_text "2 errors prohibited this record from being saved:"
+    assert_text "Date #{I18n.t('errors.messages.blank')}"
+    assert_text "Rationale #{I18n.t('errors.messages.blank')}"
+
     fill_in "Date", with: @post.date
     fill_in "Rationale", with: @post.rationale
     click_on "Update Post"

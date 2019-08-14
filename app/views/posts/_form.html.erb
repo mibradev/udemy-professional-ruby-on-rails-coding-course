@@ -1,4 +1,6 @@
 <%= form_with(model: post, local: true) do |form| %>
+  <%= render 'shared/form_errors', record: post %>
+
   <div class="field form-group">
     <%= form.label :date %>
     <%= form.date_field :date, class: 'form-control' %>
