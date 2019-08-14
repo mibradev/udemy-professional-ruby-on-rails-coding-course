@@ -3,7 +3,7 @@ require 'test_helper'
 class HomeControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
-  def setup
+  setup do
     sign_in users(:user)
   end
 

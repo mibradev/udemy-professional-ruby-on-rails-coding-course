@@ -3,7 +3,7 @@ require 'test_helper'
 class PostsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
-  def setup
+  setup do
     @post = posts(:one)
     sign_in users(:user)
   end
@@ -15,12 +15,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
 
   test "should get new" do
     get new_post_url
-    assert_response :ok
-  end
-
-  test "should get edit" do
-    get edit_post_url(@post)
-    assert_response :ok
+    assert_response :success
   end
 
   test "should create post" do
@@ -29,5 +24,20 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to post_url(Post.last)
+  end
+
+  test "should show post" do
+    get post_url(@post)
+    assert_response :success
+  end
+
+  test "should get edit" do
+    get edit_post_url(@post)
+    assert_response :success
+  end
+
+  test "should update post" do
+    patch post_url(@post), params: { post: { date: @post.date, rationale: @post.rationale } }
+    assert_redirected_to post_url(@post)
   end
 end
