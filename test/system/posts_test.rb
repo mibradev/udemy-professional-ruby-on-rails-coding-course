@@ -34,4 +34,12 @@ class PostsTest < ApplicationSystemTestCase
     click_on "Create Post"
     assert_text "Post was successfully created"
   end
+
+  test "updating a Post" do
+    visit posts_url
+    click_on "Edit", match: :first
+    fill_in "Date", with: @post.date
+    fill_in "Rationale", with: @post.rationale
+    click_on "Update Post"
+  end
 end

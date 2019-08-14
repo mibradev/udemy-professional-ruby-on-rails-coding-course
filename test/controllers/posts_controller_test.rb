@@ -18,6 +18,11 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert_response :ok
   end
 
+  test "should get edit" do
+    get edit_post_url(@post)
+    assert_response :ok
+  end
+
   test "should create post" do
     assert_difference('Post.count') do
       post posts_url, params: { post: { date: @post.date, rationale: @post.rationale } }

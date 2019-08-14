@@ -1,4 +1,6 @@
 class PostsController < ApplicationController
+  before_action :set_post, only: [:edit]
+
   def index
     @posts = Post.includes(:user)
   end
@@ -8,6 +10,9 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+  end
+
+  def edit
   end
 
   def create
@@ -24,7 +29,14 @@ class PostsController < ApplicationController
     end
   end
 
+  def update
+  end
+
   private
+    def set_post
+      @post = Post.find(params[:id])
+    end
+
     def post_params
       params.require(:post).permit(:date, :rationale)
     end

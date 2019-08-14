@@ -3,4 +3,5 @@
   <td><%= post.date %></td>
   <td><%= post.user.full_name %></td>
   <td><%= truncate post.rationale %></td>
+  <td class="text-right"><%= link_to 'Edit', edit_post_path(post), class: 'btn btn-outline-primary btn-sm' %></td>
 </tr>

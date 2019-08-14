@@ -1,15 +1,15 @@
 <%= form_with(model: post, local: true) do |form| %>
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :date %>
-    <%= form.date_field :date %>
+    <%= form.date_field :date, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :rationale %>
-    <%= form.text_area :rationale %>
+    <%= form.text_area :rationale, class: 'form-control' %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: 'btn btn-primary' %>
   </div>
 <% end %>
