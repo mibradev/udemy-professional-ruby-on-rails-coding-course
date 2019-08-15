@@ -13,6 +13,7 @@ class UserDashboard < Administrate::BaseDashboard
     password: Field::Password,
     first_name: Field::String,
     last_name: Field::String,
+    full_name: Field::String.with_options(searchable: false),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
     posts: Field::HasMany,
@@ -26,8 +27,7 @@ class UserDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = [
     :id,
     :email,
-    :first_name,
-    :last_name,
+    :full_name,
     :posts,
   ].freeze
 
