@@ -10,7 +10,7 @@ class PostDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     date: Field::DateTime,
-    rationale: Field::Text,
+    rationale: Field::Text.with_options(searchable: true),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
     user: Field::BelongsTo,
