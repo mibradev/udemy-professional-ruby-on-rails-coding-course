@@ -22,7 +22,7 @@ class HomeTest < ApplicationSystemTestCase
     assert_selector "nav a", text: "Account"
 
     click_on "Account"
-    assert_selector "nav a", text: "Edit Details"
+    assert_selector "nav a", text: "Dashboard"
     assert_selector "nav a", text: "Logout"
   end
 end

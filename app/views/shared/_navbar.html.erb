@@ -17,12 +17,12 @@
 
       <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle <%= active_link_class(edit_user_registration_path) %>" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Account
           </a>
 
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <%= active_link_to 'Edit Details', edit_user_registration_path, class: 'dropdown-item' %>
+            <%= link_to 'Dashboard', '#', class: 'dropdown-item' %>
             <div class="dropdown-divider"></div>
             <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'dropdown-item' %>
           </div>
