@@ -2,7 +2,7 @@ require 'test_helper'
 
 class PostTest < ActiveSupport::TestCase
   def setup
-    @post = posts(:one)
+    @post = posts(:submitted)
   end
 
   test "should be valid" do
@@ -22,5 +22,17 @@ class PostTest < ActiveSupport::TestCase
   test "should have rationale" do
     @post.rationale = nil
     assert_not @post.valid?
+  end
+
+  test "should be submitted" do
+    assert @post.submitted?
+  end
+
+  test "should be approved" do
+    assert posts(:approved).approved?
+  end
+
+  test "should be rejected" do
+    assert posts(:rejected).rejected?
   end
 end

@@ -2,7 +2,7 @@ require "application_system_test_case"
 
 class PostsTest < ApplicationSystemTestCase
   setup do
-    @post = posts(:one)
+    @post = posts(:submitted)
     sign_in users(:user)
   end
 
@@ -11,10 +11,12 @@ class PostsTest < ApplicationSystemTestCase
     assert_selector "h2", text: "Posts"
     assert_selector "table th", text: "#"
     assert_selector "table th", text: "Date"
+    assert_selector "table th", text: "Status"
     assert_selector "table th", text: "User"
     assert_selector "table th", text: "Rationale"
     assert_selector "table th", text: @post.id
     assert_selector "table td", text: @post.date
+    assert_selector "table td", text: @post.status.titleize
     assert_selector "table td", text: @post.user.full_name
     assert_selector "table td", text: @post.rationale
   end
@@ -32,9 +34,11 @@ class PostsTest < ApplicationSystemTestCase
     click_on "Show", match: :first
     assert_selector "h2", text: "Post ##{@post.id}"
     assert_selector "dt", text: "Date"
-    assert_selector "dt", text: "Rationale"
     assert_selector "dd", text: @post.date
+    assert_selector "dt", text: "Rationale"
     assert_selector "dd", text: @post.rationale
+    assert_selector "dt", text: "Status"
+    assert_selector "dd", text: @post.status.titleize
   end
 
   test "creating a Post" do
@@ -84,5 +88,19 @@ class PostsTest < ApplicationSystemTestCase
     assert_current_path edit_post_path(@post)
     click_on "Show"
     assert_current_path post_path(@post)
+  end
+
+  test "approving a Post" do
+    visit edit_post_url(@post)
+    choose "Approved"
+    click_on "Update Post"
+    assert @post.reload.approved?
+  end
+
+  test "rejecting a Post" do
+    visit edit_post_url(@post)
+    choose "Rejected"
+    click_on "Update Post"
+    assert @post.reload.rejected?
   end
 end

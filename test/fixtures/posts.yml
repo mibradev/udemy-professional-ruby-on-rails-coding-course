@@ -1,11 +1,18 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+submitted:
   date: 2019-08-12
   rationale: MyText
   user: user
 
-two:
+approved:
   date: 2019-08-12
   rationale: MyText
-  user: admin
+  user: user
+  status: 1
+
+rejected:
+  date: 2019-08-12
+  rationale: MyText
+  user: user
+  status: 2

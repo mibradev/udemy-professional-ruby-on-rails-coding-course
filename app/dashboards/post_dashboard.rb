@@ -11,6 +11,7 @@ class PostDashboard < Administrate::BaseDashboard
     id: Field::Number,
     date: Field::DateTime,
     rationale: Field::Text.with_options(searchable: true),
+    status: Field::Select.with_options(collection: Post.statuses.keys, searchable: false),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
     user: Field::BelongsTo,
@@ -25,6 +26,7 @@ class PostDashboard < Administrate::BaseDashboard
     :id,
     :date,
     :rationale,
+    :status,
     :user,
   ].freeze
 
@@ -34,6 +36,7 @@ class PostDashboard < Administrate::BaseDashboard
     :id,
     :date,
     :rationale,
+    :status,
     :created_at,
     :updated_at,
     :user,
@@ -45,6 +48,7 @@ class PostDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = [
     :date,
     :rationale,
+    :status,
   ].freeze
 
   # Overwrite this method to customize how posts are displayed
