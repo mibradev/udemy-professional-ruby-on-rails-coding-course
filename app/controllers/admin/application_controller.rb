@@ -10,7 +10,7 @@ module Admin
     before_action :authenticate_admin
 
     def authenticate_admin
-      unless current_user.type == 'AdminUser'
+      unless current_user.admin?
         redirect_to root_url, alert: "You don't have authorization to view that page."
       end
     end
