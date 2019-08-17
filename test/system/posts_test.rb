@@ -88,6 +88,13 @@ class PostsTest < ApplicationSystemTestCase
     assert_text "Post was successfully destroyed"
   end
 
+  test "destroying a Post from show" do
+    sign_in users(:user)
+    visit post_url(@post)
+    page.accept_confirm { click_on "Delete" }
+    assert_text "Post was successfully destroyed"
+  end
+
   test "navigating between show and edit" do
     sign_in users(:user)
     visit post_url(@post)

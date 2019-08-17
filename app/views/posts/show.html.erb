@@ -4,7 +4,10 @@
   </div>
 
   <div class="col text-right">
-    <%= link_to 'Edit', edit_post_path(@post), class: 'btn btn-primary' %>
+    <div class="btn-group">
+      <%= link_to 'Edit', edit_post_path(@post), class: 'btn btn-primary' %>
+      <%= link_to 'Delete', @post, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+    </div>
   </div>
 </div>
 
