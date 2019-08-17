@@ -19,6 +19,10 @@ class PostPolicy < ApplicationPolicy
     show?
   end
 
+  def change_status?
+    user.admin?
+  end
+
   def permitted_attributes
     params = [:date, :rationale]
     user.admin? ? params.push(:status) : params

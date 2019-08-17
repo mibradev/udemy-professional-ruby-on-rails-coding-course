@@ -11,22 +11,24 @@
     <%= form.text_area :rationale, class: 'form-control' %>
   </div>
 
-  <div class="mb-3">
-    <div class="form-check form-check-inline">
-      <%= form.radio_button :status, :submitted, class: 'form-check-input' %>
-      <%= form.label :status_submitted, 'Submitted', class: 'form-check-label' %>
-    </div>
+  <% if policy(post).change_status? %>
+    <div class="mb-3">
+      <div class="form-check form-check-inline">
+        <%= form.radio_button :status, :submitted, class: 'form-check-input' %>
+        <%= form.label :status_submitted, 'Submitted', class: 'form-check-label' %>
+      </div>
 
-    <div class="form-check form-check-inline">
-      <%= form.radio_button :status, :approved, class: 'form-check-input' %>
-      <%= form.label :status_approved, 'Approved', class: 'form-check-label' %>
-    </div>
+      <div class="form-check form-check-inline">
+        <%= form.radio_button :status, :approved, class: 'form-check-input' %>
+        <%= form.label :status_approved, 'Approved', class: 'form-check-label' %>
+      </div>
 
-    <div class="form-check form-check-inline">
-      <%= form.radio_button :status, :rejected, class: 'form-check-input' %>
-      <%= form.label :status_rejected, 'Rejected', class: 'form-check-label' %>
+      <div class="form-check form-check-inline">
+        <%= form.radio_button :status, :rejected, class: 'form-check-input' %>
+        <%= form.label :status_rejected, 'Rejected', class: 'form-check-label' %>
+      </div>
     </div>
-  </div>
+  <% end %>
 
   <div class="actions">
     <%= form.submit class: 'btn btn-primary' %>

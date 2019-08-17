@@ -48,4 +48,9 @@ class PostPolicyTest < ActiveSupport::TestCase
     assert_not Pundit.policy!(@user2, @post).destroy?
     assert Pundit.policy!(@admin, @post).destroy?
   end
+
+  test "change status" do
+    assert_not Pundit.policy!(@user1, @post).change_status?
+    assert Pundit.policy!(@admin, @post).change_status?
+  end
 end

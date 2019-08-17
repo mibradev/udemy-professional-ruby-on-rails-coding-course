@@ -3,10 +3,10 @@ require "application_system_test_case"
 class PostsTest < ApplicationSystemTestCase
   setup do
     @post = posts(:submitted)
-    sign_in admin_users(:admin)
   end
 
   test "visiting the index" do
+    sign_in users(:user)
     visit posts_url
     assert_selector "h2", text: "Posts"
     assert_selector "table th", text: "#"
@@ -22,6 +22,7 @@ class PostsTest < ApplicationSystemTestCase
   end
 
   test "visiting the index with no posts found" do
+    sign_in users(:user)
     Post.delete_all
     visit posts_url
     assert_selector "h2", text: "Posts"
@@ -30,6 +31,7 @@ class PostsTest < ApplicationSystemTestCase
   end
 
   test "showing the post" do
+    sign_in users(:user)
     visit posts_url
     click_on "Show", match: :first
     assert_selector "h2", text: "Post ##{@post.id}"
@@ -42,6 +44,7 @@ class PostsTest < ApplicationSystemTestCase
   end
 
   test "creating a Post" do
+    sign_in users(:user)
     visit posts_url
     click_on "New Post"
 
@@ -51,6 +54,7 @@ class PostsTest < ApplicationSystemTestCase
     assert_text "Rationale #{I18n.t('errors.messages.blank')}"
 
     assert_selector "h2", text: "New Post"
+    assert_no_selector "input[name='post[status]']"
     fill_in "Date", with: @post.date
     fill_in "Rationale", with: @post.rationale
     click_on "Create Post"
@@ -58,6 +62,7 @@ class PostsTest < ApplicationSystemTestCase
   end
 
   test "updating a Post" do
+    sign_in users(:user)
     visit posts_url
     click_on "Edit", match: :first
 
@@ -69,6 +74,7 @@ class PostsTest < ApplicationSystemTestCase
     assert_text "Rationale #{I18n.t('errors.messages.blank')}"
 
     assert_selector "h2", text: "Editing Post ##{@post.id}"
+    assert_no_selector "input[name='post[status]']"
     fill_in "Date", with: @post.date
     fill_in "Rationale", with: @post.rationale
     click_on "Update Post"
@@ -76,12 +82,14 @@ class PostsTest < ApplicationSystemTestCase
   end
 
   test "destroying a Post" do
+    sign_in users(:user)
     visit posts_url
     page.accept_confirm { click_on "Delete", match: :first }
     assert_text "Post was successfully destroyed"
   end
 
   test "navigating between show and edit" do
+    sign_in users(:user)
     visit post_url(@post)
     assert_current_path post_path(@post)
     click_on "Edit"
@@ -91,6 +99,7 @@ class PostsTest < ApplicationSystemTestCase
   end
 
   test "approving a Post" do
+    sign_in admin_users(:admin)
     visit edit_post_url(@post)
     choose "Approved"
     click_on "Update Post"
@@ -98,6 +107,7 @@ class PostsTest < ApplicationSystemTestCase
   end
 
   test "rejecting a Post" do
+    sign_in admin_users(:admin)
     visit edit_post_url(@post)
     choose "Rejected"
     click_on "Update Post"

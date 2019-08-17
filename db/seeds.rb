@@ -6,9 +6,14 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-user = User.create!(email: 'user@example.com', password: ENV.fetch('RAILS_USER_PASSWORD'), first_name: 'First', last_name: 'User')
+user1 = User.create!(email: 'user1@example.com', password: ENV.fetch('RAILS_USER_PASSWORD'), first_name: 'First', last_name: 'User')
+user2 = User.create!(email: 'user2@example.com', password: ENV.fetch('RAILS_USER_PASSWORD'), first_name: 'Second', last_name: 'User')
 admin = AdminUser.create!(email: 'admin@example.com', password: ENV.fetch('RAILS_USER_PASSWORD'), first_name: 'First', last_name: 'Admin')
 
-100.times do |i|
-  user.posts.create!(date: Date.current, rationale: "Post #{i + 1} rationale.")
+(1..100).each do |i|
+  user1.posts.create!(date: Date.current, rationale: "Post #{i} rationale.")
+end
+
+(101..120).each do |i|
+  user2.posts.create!(date: Date.current, rationale: "Post #{i} rationale.")
 end
