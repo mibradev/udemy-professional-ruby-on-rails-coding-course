@@ -5,3 +5,9 @@ user:
   encrypted_password: <%= ENV.fetch('RAILS_USER_PASSWORD') %>
   first_name: First
   last_name: User
+
+abdullah:
+  email: abdullah@example.com
+  encrypted_password: <%= ENV.fetch('RAILS_USER_PASSWORD') %>
+  first_name: Second
+  last_name: User

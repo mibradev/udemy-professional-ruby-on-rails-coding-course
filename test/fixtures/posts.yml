@@ -2,17 +2,22 @@
 
 submitted:
   date: 2019-08-12
-  rationale: MyText
+  rationale: submitted by user
   user: user
 
 approved:
   date: 2019-08-12
-  rationale: MyText
+  rationale: approved for user
   user: user
   status: 1
 
 rejected:
   date: 2019-08-12
-  rationale: MyText
+  rationale: rejected for user
   user: user
   status: 2
+
+submitted_by_abdullah:
+  date: 2019-08-12
+  rationale: submitted by abdullah
+  user: abdullah
