@@ -3,7 +3,7 @@ require "application_system_test_case"
 class PostsTest < ApplicationSystemTestCase
   setup do
     @post = posts(:submitted)
-    sign_in users(:user)
+    sign_in admin_users(:admin)
   end
 
   test "visiting the index" do

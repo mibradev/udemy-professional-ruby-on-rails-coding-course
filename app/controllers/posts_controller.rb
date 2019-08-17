@@ -2,21 +2,26 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   def index
-    @posts = Post.includes(:user)
+    @posts = policy_scope(Post).includes(:user)
+    authorize @posts
   end
 
   def show
+    authorize(@post)
   end
 
   def new
     @post = Post.new
+    authorize(@post)
   end
 
   def edit
+    authorize(@post)
   end
 
   def create
     @post = current_user.posts.new(post_params)
+    authorize(@post)
 
     respond_to do |format|
       if @post.save
@@ -30,6 +35,8 @@ class PostsController < ApplicationController
   end
 
   def update
+    authorize(@post)
+
     respond_to do |format|
       if @post.update(post_params)
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
@@ -42,6 +49,7 @@ class PostsController < ApplicationController
   end
 
   def destroy
+    authorize(@post)
     @post.destroy
 
     respond_to do |format|
@@ -56,6 +64,6 @@ class PostsController < ApplicationController
     end
 
     def post_params
-      params.require(:post).permit(:date, :rationale, :status)
+      params.require(:post).permit(policy(:post).permitted_attributes)
     end
 end
