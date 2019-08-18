@@ -56,3 +56,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise', '~> 4.6'
 gem 'pundit', '~> 2.1'
 gem 'administrate', '~> 0.11.0'
+gem 'font-awesome-sass', '~> 5.9.0'
