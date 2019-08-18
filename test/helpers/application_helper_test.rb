@@ -1,7 +1,9 @@
+require 'test_helper'
+
 class ApplicationHelperTest < ActionView::TestCase
   attr_reader :request
 
-  def setup
+  setup do
     request.path = root_path
   end
 
