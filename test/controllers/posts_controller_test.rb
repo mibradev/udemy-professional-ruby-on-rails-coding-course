@@ -3,6 +3,10 @@ require 'test_helper'
 class PostsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
+  def post_params(post)
+    { post: { overtime_request: post.overtime_request, date: post.date, rationale: post.rationale } }
+  end
+
   test "admin should get index" do
     sign_in admin_users(:admin)
     get posts_url
@@ -33,7 +37,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     @post = posts(:submitted)
     sign_in admin_users(:admin)
     assert_difference('Post.count') do
-      post posts_url, params: { post: { date: @post.date, rationale: @post.rationale } }
+      post posts_url, params: post_params(@post)
     end
     assert_redirected_to post_url(Post.last)
   end
@@ -42,18 +46,19 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     @post = posts(:submitted)
     sign_in users(:user)
     assert_difference('Post.count') do
-      post posts_url, params: { post: { date: @post.date, rationale: @post.rationale } }
+      post posts_url, params: post_params(@post)
     end
     assert_redirected_to post_url(Post.last)
   end
 
   test "user should not create post with changed status" do
     @post = posts(:submitted)
+    @post.status = 'approved'
     sign_in users(:user)
     assert_difference('Post.count') do
-      post posts_url, params: { post: { date: @post.date, rationale: @post.rationale, status: 'approved' } }
+      post posts_url, params: post_params(@post)
     end
-    assert_equal 'submitted', @post.reload.status
+    assert @post.reload.submitted?
   end
 
   test "admin should show post" do
@@ -104,14 +109,14 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   test "admin should update post" do
     @post = posts(:submitted)
     sign_in admin_users(:admin)
-    patch post_url(@post), params: { post: { date: @post.date, rationale: @post.rationale } }
+    patch post_url(@post), params: post_params(@post)
     assert_redirected_to post_url(@post)
   end
 
   test "user should update his post" do
     @post = posts(:submitted)
     sign_in users(:user)
-    patch post_url(@post), params: { post: { date: @post.date, rationale: @post.rationale } }
+    patch post_url(@post), params: post_params(@post)
     assert_redirected_to post_url(@post)
   end
 
@@ -119,7 +124,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     @post = posts(:submitted_by_abdullah)
     sign_in users(:user)
     assert_raises(Pundit::NotAuthorizedError) do
-      patch post_url(@post), params: { post: { date: @post.date, rationale: @post.rationale } }
+      patch post_url(@post), params: post_params(@post)
     end
   end
 
@@ -127,15 +132,16 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     @post = posts(:approved)
     sign_in users(:user)
     assert_raises(Pundit::NotAuthorizedError) do
-      patch post_url(@post), params: { post: { date: @post.date, rationale: @post.rationale } }
+      patch post_url(@post), params: post_params(@post)
     end
   end
 
   test "user should not update post status" do
     @post = posts(:submitted)
+    @post.status = 'approved'
     sign_in users(:user)
-    patch post_url(@post), params: { post: { date: @post.date, rationale: @post.rationale, status: 'approved' } }
-    assert_equal 'submitted', @post.reload.status
+    patch post_url(@post), params: post_params(@post)
+    assert @post.reload.submitted?
   end
 
   test "admin should destroy post" do

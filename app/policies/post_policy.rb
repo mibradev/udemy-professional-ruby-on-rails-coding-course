@@ -24,7 +24,7 @@ class PostPolicy < ApplicationPolicy
   end
 
   def permitted_attributes
-    params = [:date, :rationale]
+    params = [:overtime_request, :date, :rationale]
     user.admin? ? params.push(:status) : params
   end
 

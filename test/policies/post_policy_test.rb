@@ -15,7 +15,7 @@ class PostPolicyTest < ActiveSupport::TestCase
   end
 
   test "permitted attributes" do
-    params = [:date, :rationale]
+    params = [:overtime_request, :date, :rationale]
     assert_equal params, PostPolicy.new(@user1, @post).permitted_attributes
     assert_equal params.push(:status), PostPolicy.new(@admin, @post).permitted_attributes
   end

@@ -13,5 +13,10 @@ users = [
 ]
 
 (1..100).each do |i|
-  users.sample.posts.create!(date: Date.current, rationale: "Post #{i} rationale.", status: Post.statuses.keys.sample)
+  users.sample.posts.create!(
+    overtime_request: rand(0.1..20.0),
+    date: Date.current,
+    rationale: "Post #{i} rationale.",
+    status: Post.statuses.keys.sample
+  )
 end

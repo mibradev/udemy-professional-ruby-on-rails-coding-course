@@ -14,6 +14,21 @@ class PostTest < ActiveSupport::TestCase
     assert_not @post.valid?
   end
 
+  test "should have overtime request" do
+    @post.overtime_request = nil
+    assert_not @post.valid?
+  end
+
+  test "overtime request should be greater than zero" do
+    @post.overtime_request = 0.0
+    assert_not @post.valid?
+  end
+
+  test "overtime request should be less than or equal to 20" do
+    @post.overtime_request = 20.1
+    assert_not @post.valid?
+  end
+
   test "should have date" do
     @post.date = nil
     assert_not @post.valid?
