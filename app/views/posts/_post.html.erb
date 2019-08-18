@@ -1,7 +1,7 @@
 <tr>
   <th scope="row"><%= post.id %></th>
   <td><%= post.date %></td>
-  <td><%= post.status.titleize %></td>
+  <td><%= status_badge post %></td>
   <td><%= post.user.full_name %></td>
   <td><%= truncate post.rationale %></td>
 

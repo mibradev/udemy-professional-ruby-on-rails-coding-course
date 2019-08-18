@@ -11,12 +11,9 @@ user2 = User.create!(email: 'user2@example.com', password: ENV.fetch('RAILS_USER
 admin = AdminUser.create!(email: 'admin@example.com', password: ENV.fetch('RAILS_USER_PASSWORD'), first_name: 'First', last_name: 'Admin')
 
 (1..100).each do |i|
-  params = { date: Date.current, rationale: "Post #{i} rationale." }
-  params[:status] = 'approved' if i.between?(6, 10)
-  params[:status] = 'rejected' if i.between?(11, 15)
-  user1.posts.create!(params)
+  user1.posts.create!(date: Date.current, rationale: "Post #{i} rationale.", status: Post.statuses.keys.sample)
 end
 
 (101..120).each do |i|
-  user2.posts.create!(date: Date.current, rationale: "Post #{i} rationale.")
+  user2.posts.create!(date: Date.current, rationale: "Post #{i} rationale.", status: Post.statuses.keys.sample)
 end
