@@ -38,15 +38,21 @@ class PostPolicyTest < ActiveSupport::TestCase
   end
 
   test "update" do
+    @approved_post = posts(:approved)
     assert Pundit.policy!(@user1, @post).update?
+    assert_not Pundit.policy!(@user1, @approved_post).update?
     assert_not Pundit.policy!(@user2, @post).update?
     assert Pundit.policy!(@admin, @post).update?
+    assert Pundit.policy!(@admin, @approved_post).update?
   end
 
   test "destroy" do
+    @approved_post = posts(:approved)
     assert Pundit.policy!(@user1, @post).destroy?
+    assert_not Pundit.policy!(@user1, @approved_post).destroy?
     assert_not Pundit.policy!(@user2, @post).destroy?
     assert Pundit.policy!(@admin, @post).destroy?
+    assert Pundit.policy!(@admin, @approved_post).destroy?
   end
 
   test "change status" do

@@ -12,11 +12,11 @@ class PostPolicy < ApplicationPolicy
   end
 
   def update?
-    show?
+    user.admin? || (record.user_id == user.id && !record.approved?)
   end
 
   def destroy?
-    show?
+    update?
   end
 
   def change_status?

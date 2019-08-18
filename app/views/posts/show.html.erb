@@ -5,8 +5,8 @@
 
   <div class="col text-right">
     <div class="btn-group">
-      <%= link_to 'Edit', edit_post_path(@post), class: 'btn btn-primary' %>
-      <%= link_to 'Delete', @post, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+      <%= link_to 'Edit', edit_post_path(@post), class: ['btn btn-primary', ('disabled' unless policy(@post).edit?)] %>
+      <%= link_to 'Delete', @post, method: :delete, data: { confirm: 'Are you sure?' }, class: ['btn btn-danger', ('disabled' unless policy(@post).destroy?)] %>
     </div>
   </div>
 </div>

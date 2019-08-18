@@ -4,11 +4,12 @@
   <td><%= post.status.titleize %></td>
   <td><%= post.user.full_name %></td>
   <td><%= truncate post.rationale %></td>
+
   <td class="text-right">
     <div class="btn-group">
       <%= link_to 'Show', post, class: 'btn btn-outline-success btn-sm' %>
-      <%= link_to 'Edit', edit_post_path(post), class: 'btn btn-outline-primary btn-sm' %>
-      <%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger btn-sm' %>
+      <%= link_to 'Edit', edit_post_path(post), class: ['btn btn-outline-primary btn-sm', ('disabled' unless policy(post).edit?)] %>
+      <%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure?' }, class: ['btn btn-outline-danger btn-sm', ('disabled' unless policy(post).destroy?)] %>
     </div>
   </td>
 </tr>

@@ -10,11 +10,11 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "user should get index with his posts" do
-    @user1 = users(:user)
-    sign_in @user1
+    @user = users(:user)
+    sign_in @user
     get posts_url
     assert_response :success
-    assert_equal @user1.posts.length, @controller.instance_variable_get("@posts").length
+    assert_equal @user.posts.length, @controller.instance_variable_get("@posts").length
   end
 
   test "admin should get new" do
@@ -30,30 +30,30 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "admin should create post" do
-    @post1 = posts(:submitted)
+    @post = posts(:submitted)
     sign_in admin_users(:admin)
     assert_difference('Post.count') do
-      post posts_url, params: { post: { date: @post1.date, rationale: @post1.rationale } }
+      post posts_url, params: { post: { date: @post.date, rationale: @post.rationale } }
     end
     assert_redirected_to post_url(Post.last)
   end
 
   test "user should create post" do
-    @post1 = posts(:submitted)
+    @post = posts(:submitted)
     sign_in users(:user)
     assert_difference('Post.count') do
-      post posts_url, params: { post: { date: @post1.date, rationale: @post1.rationale } }
+      post posts_url, params: { post: { date: @post.date, rationale: @post.rationale } }
     end
     assert_redirected_to post_url(Post.last)
   end
 
   test "user should not create post with changed status" do
-    @post1 = posts(:submitted)
+    @post = posts(:submitted)
     sign_in users(:user)
     assert_difference('Post.count') do
-      post posts_url, params: { post: { date: @post1.date, rationale: @post1.rationale, status: 'approved' } }
+      post posts_url, params: { post: { date: @post.date, rationale: @post.rationale, status: 'approved' } }
     end
-    assert_equal 'submitted', @post1.reload.status
+    assert_equal 'submitted', @post.reload.status
   end
 
   test "admin should show post" do
@@ -94,33 +94,48 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test "user should not edit an approved post" do
+    sign_in users(:user)
+    assert_raises(Pundit::NotAuthorizedError) do
+      get edit_post_url(posts(:approved))
+    end
+  end
+
   test "admin should update post" do
-    @post1 = posts(:submitted)
+    @post = posts(:submitted)
     sign_in admin_users(:admin)
-    patch post_url(@post1), params: { post: { date: @post1.date, rationale: @post1.rationale } }
-    assert_redirected_to post_url(@post1)
+    patch post_url(@post), params: { post: { date: @post.date, rationale: @post.rationale } }
+    assert_redirected_to post_url(@post)
   end
 
   test "user should update his post" do
-    @post1 = posts(:submitted)
+    @post = posts(:submitted)
     sign_in users(:user)
-    patch post_url(@post1), params: { post: { date: @post1.date, rationale: @post1.rationale } }
-    assert_redirected_to post_url(@post1)
+    patch post_url(@post), params: { post: { date: @post.date, rationale: @post.rationale } }
+    assert_redirected_to post_url(@post)
   end
 
   test "user should not update other user's post" do
-    @post2 = posts(:submitted_by_abdullah)
+    @post = posts(:submitted_by_abdullah)
     sign_in users(:user)
     assert_raises(Pundit::NotAuthorizedError) do
-      patch post_url(@post2), params: { post: { date: @post2.date, rationale: @post2.rationale } }
+      patch post_url(@post), params: { post: { date: @post.date, rationale: @post.rationale } }
+    end
+  end
+
+  test "user should not update an approved post" do
+    @post = posts(:approved)
+    sign_in users(:user)
+    assert_raises(Pundit::NotAuthorizedError) do
+      patch post_url(@post), params: { post: { date: @post.date, rationale: @post.rationale } }
     end
   end
 
   test "user should not update post status" do
-    @post1 = posts(:submitted)
+    @post = posts(:submitted)
     sign_in users(:user)
-    patch post_url(@post1), params: { post: { date: @post1.date, rationale: @post1.rationale, status: 'approved' } }
-    assert_equal 'submitted', @post1.reload.status
+    patch post_url(@post), params: { post: { date: @post.date, rationale: @post.rationale, status: 'approved' } }
+    assert_equal 'submitted', @post.reload.status
   end
 
   test "admin should destroy post" do
@@ -143,6 +158,13 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     sign_in users(:user)
     assert_raises(Pundit::NotAuthorizedError) do
       delete post_url(posts(:submitted_by_abdullah))
+    end
+  end
+
+  test "user should not destroy an approved post" do
+    sign_in users(:user)
+    assert_raises(Pundit::NotAuthorizedError) do
+      delete post_url(posts(:approved))
     end
   end
 end

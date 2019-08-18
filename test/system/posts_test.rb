@@ -43,7 +43,7 @@ class PostsTest < ApplicationSystemTestCase
     assert_selector "dd", text: @post.status.titleize
   end
 
-  test "creating a Post" do
+  test "creating a post" do
     sign_in users(:user)
     visit posts_url
     click_on "New Post"
@@ -61,7 +61,7 @@ class PostsTest < ApplicationSystemTestCase
     assert_text "Post was successfully created"
   end
 
-  test "updating a Post" do
+  test "updating a post" do
     sign_in users(:user)
     visit posts_url
     click_on "Edit", match: :first
@@ -81,18 +81,40 @@ class PostsTest < ApplicationSystemTestCase
     assert_text "Post was successfully updated"
   end
 
-  test "destroying a Post" do
+  test "unable to update an approved post" do
+    sign_in users(:user)
+    Post.where.not(status: 'approved').delete_all
+
+    visit posts_url
+    assert_selector "a.disabled", text: "Edit"
+
+    visit post_url(posts(:approved))
+    assert_selector "a.disabled", text: "Edit"
+  end
+
+  test "destroying a post" do
     sign_in users(:user)
     visit posts_url
     page.accept_confirm { click_on "Delete", match: :first }
     assert_text "Post was successfully destroyed"
   end
 
-  test "destroying a Post from show" do
+  test "destroying a post from show" do
     sign_in users(:user)
     visit post_url(@post)
     page.accept_confirm { click_on "Delete" }
     assert_text "Post was successfully destroyed"
+  end
+
+  test "unable to destroy an approved post" do
+    sign_in users(:user)
+    Post.where.not(status: 'approved').delete_all
+
+    visit posts_url
+    assert_selector "a.disabled", text: "Delete"
+
+    visit post_url(posts(:approved))
+    assert_selector "a.disabled", text: "Delete"
   end
 
   test "navigating between show and edit" do
@@ -105,7 +127,7 @@ class PostsTest < ApplicationSystemTestCase
     assert_current_path post_path(@post)
   end
 
-  test "approving a Post" do
+  test "approving a post" do
     sign_in admin_users(:admin)
     visit edit_post_url(@post)
     choose "Approved"
@@ -113,7 +135,7 @@ class PostsTest < ApplicationSystemTestCase
     assert @post.reload.approved?
   end
 
-  test "rejecting a Post" do
+  test "rejecting a post" do
     sign_in admin_users(:admin)
     visit edit_post_url(@post)
     choose "Rejected"
