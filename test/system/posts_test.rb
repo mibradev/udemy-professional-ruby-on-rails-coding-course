@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "application_system_test_case"
 
 class PostsTest < ApplicationSystemTestCase
@@ -104,7 +106,7 @@ class PostsTest < ApplicationSystemTestCase
 
   test "unable to update an approved post" do
     sign_in users(:user)
-    Post.where.not(status: 'approved').delete_all
+    Post.where.not(status: "approved").delete_all
 
     visit posts_url
     assert_selector "a.disabled", text: "Edit"
@@ -129,7 +131,7 @@ class PostsTest < ApplicationSystemTestCase
 
   test "unable to destroy an approved post" do
     sign_in users(:user)
-    Post.where.not(status: 'approved').delete_all
+    Post.where.not(status: "approved").delete_all
 
     visit posts_url
     assert_selector "a.disabled", text: "Delete"

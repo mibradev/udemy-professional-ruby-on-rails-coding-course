@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "application_system_test_case"
 
 class HomeTest < ApplicationSystemTestCase
@@ -32,7 +34,7 @@ class HomeTest < ApplicationSystemTestCase
     sign_in users(:user)
     visit root_url
     click_on "Options"
-    assert_no_selector 'a', text: "Admin Dashboard"
+    assert_no_selector "a", text: "Admin Dashboard"
     visit admin_root_path
     assert_text "You don't have authorization to view that page."
   end

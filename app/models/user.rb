@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :registerable, :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -13,6 +15,6 @@ class User < ApplicationRecord
   end
 
   def admin?
-    type == 'AdminUser'
+    type == "AdminUser"
   end
 end

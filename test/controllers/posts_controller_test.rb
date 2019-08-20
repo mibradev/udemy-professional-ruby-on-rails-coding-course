@@ -1,4 +1,6 @@
-require 'test_helper'
+# frozen_string_literal: true
+
+require "test_helper"
 
 class PostsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
@@ -36,7 +38,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   test "admin should create post" do
     @post = posts(:submitted)
     sign_in admin_users(:admin)
-    assert_difference('Post.count') do
+    assert_difference("Post.count") do
       post posts_url, params: post_params(@post)
     end
     assert_redirected_to post_url(Post.last)
@@ -45,7 +47,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   test "user should create post" do
     @post = posts(:submitted)
     sign_in users(:user)
-    assert_difference('Post.count') do
+    assert_difference("Post.count") do
       post posts_url, params: post_params(@post)
     end
     assert_redirected_to post_url(Post.last)
@@ -53,9 +55,9 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
 
   test "user should not create post with changed status" do
     @post = posts(:submitted)
-    @post.status = 'approved'
+    @post.status = "approved"
     sign_in users(:user)
-    assert_difference('Post.count') do
+    assert_difference("Post.count") do
       post posts_url, params: post_params(@post)
     end
     assert @post.reload.submitted?
@@ -63,7 +65,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
 
   test "should not create post with invalid params" do
     sign_in users(:user)
-    assert_no_difference('Post.count') do
+    assert_no_difference("Post.count") do
       post posts_url, params: post_params(Post.new)
     end
     assert_equal posts_path, path
@@ -153,7 +155,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
 
   test "user should not update post status" do
     @post = posts(:submitted)
-    @post.status = 'approved'
+    @post.status = "approved"
     sign_in users(:user)
     patch post_url(@post), params: post_params(@post)
     assert @post.reload.submitted?
@@ -161,7 +163,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
 
   test "admin should destroy post" do
     sign_in admin_users(:admin)
-    assert_difference('Post.count', -1) do
+    assert_difference("Post.count", -1) do
       delete post_url(posts(:submitted))
     end
     assert_redirected_to posts_url
@@ -169,7 +171,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
 
   test "user should destroy his post" do
     sign_in users(:user)
-    assert_difference('Post.count', -1) do
+    assert_difference("Post.count", -1) do
       delete post_url(posts(:submitted))
     end
     assert_redirected_to posts_url
