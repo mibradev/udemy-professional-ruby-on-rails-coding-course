@@ -1,10 +1,13 @@
+require 'simplecov' if ENV['COVERAGE']
+
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 require 'rails/test_help'
 
 class ActiveSupport::TestCase
   # Run tests in parallel with specified workers
-  parallelize(workers: :number_of_processors)
+  # Disable when using simplecov to fix #718: https://github.com/colszowka/simplecov/issues/718
+  parallelize(workers: :number_of_processors) unless defined?(SimpleCov)
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
