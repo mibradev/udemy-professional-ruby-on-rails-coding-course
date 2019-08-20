@@ -61,6 +61,14 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert @post.reload.submitted?
   end
 
+  test "should not create post with invalid params" do
+    sign_in users(:user)
+    assert_no_difference('Post.count') do
+      post posts_url, params: post_params(Post.new)
+    end
+    assert_equal posts_path, path
+  end
+
   test "admin should show post" do
     sign_in admin_users(:admin)
     get post_url(posts(:submitted))
@@ -104,6 +112,13 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert_raises(Pundit::NotAuthorizedError) do
       get edit_post_url(posts(:approved))
     end
+  end
+
+  test "should not update post with invalid params" do
+    @post = posts(:submitted)
+    sign_in users(:user)
+    patch post_url(@post), params: post_params(Post.new)
+    assert_equal post_path(@post), path
   end
 
   test "admin should update post" do

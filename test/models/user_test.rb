@@ -5,12 +5,12 @@ class UserTest < ActiveSupport::TestCase
     @user = users(:user)
   end
 
-  test "should not be admin" do
-    assert_nil User.new.type
-  end
-
   test "should be valid" do
     assert @user.valid?
+  end
+
+  test "should not be admin" do
+    assert_not User.new.admin?
   end
 
   test "should have first name" do
