@@ -9,6 +9,8 @@ class User < ApplicationRecord
 
   validates :first_name, presence: true
   validates :last_name, presence: true
+  validates :phone, length: { is: 10 }
+  validates :phone, numericality: { only_integer: true }
 
   def full_name
     "#{first_name} #{last_name}"

@@ -28,4 +28,11 @@ class UserTest < ActiveSupport::TestCase
   test "should have full name" do
     assert_equal "#{@user.first_name} #{@user.last_name}", @user.full_name
   end
+
+  test "should have phone" do
+    @user.phone = nil
+    assert_not @user.valid?
+    assert_includes @user.errors.messages[:phone], I18n.t("errors.messages.wrong_length.other", count: 10)
+    assert_includes @user.errors.messages[:phone], I18n.t("errors.messages.not_a_number")
+  end
 end

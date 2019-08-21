@@ -16,6 +16,7 @@ class UserDashboard < Administrate::BaseDashboard
     first_name: Field::String,
     last_name: Field::String,
     full_name: Field::String.with_options(searchable: false),
+    phone: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
     posts: Field::HasMany,
@@ -40,6 +41,7 @@ class UserDashboard < Administrate::BaseDashboard
     :email,
     :first_name,
     :last_name,
+    :phone,
     :created_at,
     :updated_at,
   ].freeze
@@ -52,6 +54,7 @@ class UserDashboard < Administrate::BaseDashboard
     :password,
     :first_name,
     :last_name,
+    :phone,
   ].freeze
 
   # Overwrite this method to customize how users are displayed
