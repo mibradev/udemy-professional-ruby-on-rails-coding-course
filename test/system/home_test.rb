@@ -15,6 +15,27 @@ class HomeTest < ApplicationSystemTestCase
     visit root_url
     find("nav").click_link "Home"
     assert_selector "h1", text: "Time Tracker"
+    assert_no_selector "h2", text: "Items Pending Your Approval"
+  end
+
+  test "admin visiting the index" do
+    sign_in admin_users(:admin)
+    visit root_url
+    assert_selector "h2", text: "Items Pending Your Approval"
+  end
+
+  test "admin approving a post" do
+    sign_in admin_users(:admin)
+    visit root_url
+    click_on "Approve", match: :first
+    assert_text "Post was successfully updated"
+  end
+
+  test "admin reviewing a post" do
+    sign_in admin_users(:admin)
+    visit root_url
+    click_on "Review", match: :first
+    assert_text "Editing Post"
   end
 
   test "logging out" do
