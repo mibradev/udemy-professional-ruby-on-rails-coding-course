@@ -30,6 +30,13 @@ class HomeTest < ApplicationSystemTestCase
     assert_current_path posts_path
   end
 
+  test "navigating to audit logs" do
+    sign_in admin_users(:admin)
+    visit root_url
+    find("nav").click_link "Audit Logs"
+    assert_current_path audit_logs_path
+  end
+
   test "visiting admin by user" do
     sign_in users(:user)
     visit root_url

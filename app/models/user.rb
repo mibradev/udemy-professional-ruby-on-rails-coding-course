@@ -6,6 +6,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :recoverable, :rememberable, :validatable
 
   has_many :posts, dependent: :destroy
+  has_many :audit_logs, dependent: :destroy
 
   validates :first_name, presence: true
   validates :last_name, presence: true

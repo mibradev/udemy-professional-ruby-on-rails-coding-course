@@ -13,6 +13,12 @@
         <li class="nav-item">
           <%= active_link_to 'Time Entries', posts_path, class: 'nav-link' %>
         </li>
+
+        <% if policy(AuditLog).index? %>
+          <li class="nav-item">
+            <%= active_link_to 'Audit Logs', audit_logs_path, class: 'nav-link' %>
+          </li>
+        <% end %>
       </ul>
 
       <ul class="navbar-nav ml-auto">

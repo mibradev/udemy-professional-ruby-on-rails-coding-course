@@ -1,0 +1,11 @@
+<div class="row mb-4">
+  <div class="col">
+    <h2 class="mb-0">Editing Audit Log</h2>
+  </div>
+
+  <div class="col text-right">
+    <%= link_to 'Show', @audit_log, class: 'btn btn-primary' %>
+  </div>
+</div>
+
+<%= render 'form', audit_log: @audit_log %>

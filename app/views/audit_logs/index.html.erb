@@ -1,0 +1,59 @@
+<div class="row mb-4">
+  <div class="col">
+    <h2 class="mb-0">Audit Logs</h2>
+  </div>
+
+  <div class="col text-right">
+    <%= link_to 'New Audit Log', new_audit_log_path, class: 'btn btn-success' %>
+  </div>
+</div>
+
+<% unless @audit_logs.any? %>
+  <p>No audit_logs found.</p>
+<% else %>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Week Starting</th>
+          <th scope="col">Confirmed At</th>
+          <th scope="col">Status</th>
+          <th scope="col">Employee</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @audit_logs.each do |audit_log| %>
+          <tr>
+            <th scope="row"><%= audit_log.id %></th>
+            <td><%= audit_log.start_date %></td>
+            <td><%= audit_log.end_date %></td>
+            <td><%= audit_log.status.titleize %></td>
+            <td><%= audit_log.user.full_name %></td>
+
+            <td class="text-right">
+              <div class="btn-group">
+                <%= link_to audit_log, class: 'btn btn-outline-success btn-sm' do %>
+                  <%= icon 'far', 'eye' %>
+                  Show
+                <% end %>
+
+                <%= link_to edit_audit_log_path(audit_log), class: 'btn btn-outline-primary btn-sm' do %>
+                  <%= icon 'far', 'edit' %>
+                  Edit
+                <% end %>
+
+                <%= link_to audit_log, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger btn-sm' do %>
+                  <%= icon 'far', 'trash-alt' %>
+                  Delete
+                <% end %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>

@@ -22,15 +22,16 @@ users = [
     first_name: "Second",
     last_name: "User",
     phone: "5005550006"
-  ),
-  AdminUser.create!(
-    email: "admin@example.com",
-    password: ENV.fetch("RAILS_USER_PASSWORD"),
-    first_name: "First",
-    last_name: "Admin",
-    phone: "5005550006"
   )
 ]
+
+AdminUser.create!(
+  email: "admin@example.com",
+  password: ENV.fetch("RAILS_USER_PASSWORD"),
+  first_name: "First",
+  last_name: "Admin",
+  phone: "5005550006"
+)
 
 (1..100).each do |i|
   users.sample.posts.create!(
@@ -39,4 +40,8 @@ users = [
     rationale: "Post #{i} rationale.",
     status: Post.statuses.keys.sample
   )
+end
+
+100.times do |i|
+  users.sample.audit_logs.create!
 end

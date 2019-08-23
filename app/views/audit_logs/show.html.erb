@@ -1,0 +1,26 @@
+<div class="row mb-4">
+  <div class="col">
+    <h2 class="mb-0">Audit Log #<%= @audit_log.id %></h2>
+  </div>
+
+  <div class="col text-right">
+    <div class="btn-group">
+      <%= link_to 'Edit', edit_audit_log_path(@audit_log), class: 'btn btn-primary' %>
+      <%= link_to 'Delete', @audit_log, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+    </div>
+  </div>
+</div>
+
+<dl>
+  <dt>Week Starting</dt>
+  <dd><%= @audit_log.start_date %></dd>
+
+  <dt>Confirmed At</dt>
+  <dd><%= @audit_log.end_date %></dd>
+
+  <dt>Status</dt>
+  <dd><%= @audit_log.status.titleize %></dd>
+
+  <dt>Employee</dt>
+  <dd><%= @audit_log.user.full_name %></dd>
+</dl>

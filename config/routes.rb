@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     root to: "posts#index"
   end
 
+  resources :audit_logs
   resources :posts
   devise_for :users
   root to: 'home#index'

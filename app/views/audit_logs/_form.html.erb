@@ -1,0 +1,29 @@
+<%= form_with(model: audit_log, local: true) do |form| %>
+  <%= render 'shared/form_errors', record: audit_log %>
+
+  <div class="field form-group">
+    <%= form.label :start_date, 'Week Starting' %>
+    <%= form.date_field :start_date, class: 'form-control' %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :end_date, 'Confirmed At' %>
+    <%= form.date_field :end_date, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <div class="form-check form-check-inline">
+      <%= form.radio_button :status, :pending, class: 'form-check-input' %>
+      <%= form.label :status_pending, 'Pending', class: 'form-check-label' %>
+    </div>
+
+    <div class="form-check form-check-inline">
+      <%= form.radio_button :status, :confirmed, class: 'form-check-input' %>
+      <%= form.label :status_confirmed, 'Confirmed', class: 'form-check-label' %>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= form.submit class: 'btn btn-primary' %>
+  </div>
+<% end %>
