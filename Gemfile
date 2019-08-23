@@ -63,5 +63,6 @@ gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "administrate", git: "https://github.com/thoughtbot/administrate"
 gem "devise", "~> 4.6"
 gem "font-awesome-sass", "~> 5.9"
+gem "kaminari", "~> 1.1"
 gem "pundit", "~> 2.1"
 gem "twilio-ruby", "~> 5.25"

@@ -5,7 +5,7 @@ class AuditLogsController < ApplicationController
   before_action -> { authorize AuditLog }
 
   def index
-    @audit_logs = policy_scope(AuditLog).includes(:user)
+    @audit_logs = policy_scope(AuditLog).includes(:user).page(params[:page]).per(10)
   end
 
   def show

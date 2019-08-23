@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   def index
-    @posts = policy_scope(Post).includes(:user)
+    @posts = policy_scope(Post).includes(:user).page(params[:page]).per(10)
     authorize @posts
   end
 
