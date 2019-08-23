@@ -14,7 +14,8 @@ class AuditLogsTest < ApplicationSystemTestCase
   end
 
   test "creating a audit log" do
-    visit audit_logs_url
+    visit root_url
+    find("nav").click_link "Audit Logs"
     click_on "New Audit Log"
 
     fill_in "Week Starting", with: @audit_log.start_date

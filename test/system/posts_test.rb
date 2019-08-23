@@ -9,7 +9,8 @@ class PostsTest < ApplicationSystemTestCase
 
   test "visiting the index" do
     sign_in users(:user)
-    visit posts_url
+    visit root_url
+    find("nav").click_link "Time Entries"
     assert_selector "h2", text: "Posts"
     assert_selector "table th", text: "#"
     assert_selector "table th", text: "Overtime Request"
