@@ -43,8 +43,8 @@ group :development do
   gem "spring"
   gem "spring-watcher-listen", "~> 2.0.0"
 
-  gem "rubocop-rails", require: false
   gem "rubocop-performance", require: false
+  gem "rubocop-rails", require: false
 end
 
 group :test do
@@ -60,8 +60,8 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem "devise", "~> 4.6"
-gem "pundit", "~> 2.1"
 gem "administrate", git: "https://github.com/thoughtbot/administrate"
-gem "font-awesome-sass", "~> 5.9.0"
-gem "twilio-ruby", "~> 5.25.3"
+gem "devise", "~> 4.6"
+gem "font-awesome-sass", "~> 5.9"
+gem "pundit", "~> 2.1"
+gem "twilio-ruby", "~> 5.25"
