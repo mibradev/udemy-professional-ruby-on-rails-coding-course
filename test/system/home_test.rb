@@ -16,12 +16,14 @@ class HomeTest < ApplicationSystemTestCase
     find("nav").click_link "Home"
     assert_selector "h1", text: "Time Tracker"
     assert_no_selector "h2", text: "Items Pending Your Approval"
+    assert_no_selector "h2", text: "Confirmation Log"
   end
 
   test "admin visiting the index" do
     sign_in admin_users(:admin)
     visit root_url
     assert_selector "h2", text: "Items Pending Your Approval"
+    assert_selector "h2", text: "Confirmation Log"
   end
 
   test "admin approving a post" do

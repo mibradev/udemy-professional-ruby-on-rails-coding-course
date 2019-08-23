@@ -1,23 +1,58 @@
-<h2 class="text-primary mb-4">Items Pending Your Approval</h2>
+<section>
+  <h2 class="text-primary mb-4">Items Pending Your Approval</h2>
 
-<% unless submitted_posts.any? %>
-  <p>No items found.</p>
-<% else %>
-  <div class="row">
-    <% submitted_posts.each do |post| %>
-      <div class="col-md-6 col-lg-4 mb-4">
-        <div class="card text-white bg-primary">
-          <div class="card-body">
-            <h5 class="card-title"><%= post.user.full_name %></h5>
-            <p class="card-text"><%= truncate post.rationale %></p>
+  <% unless submitted_posts.any? %>
+    <p>No items found.</p>
+  <% else %>
+    <div class="row">
+      <% submitted_posts.each do |post| %>
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="card text-white bg-primary">
+            <div class="card-body">
+              <h5 class="card-title"><%= post.user.full_name %></h5>
+              <p class="card-text"><%= truncate post.rationale %></p>
 
-            <div class="btn-group w-100">
-              <%= link_to "Approve", post_path(post, post: { status: "approved" }), method: :patch, class: "btn btn-success" %>
-              <%= link_to "Review", edit_post_path(post), class: "btn btn-warning" %>
+              <div class="btn-group w-100">
+                <%= link_to "Approve", post_path(post, post: { status: "approved" }), method: :patch, class: "btn btn-success" %>
+                <%= link_to "Review", edit_post_path(post), class: "btn btn-warning" %>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    <% end %>
-  </div>
-<% end %>
+      <% end %>
+    </div>
+  <% end %>
+</section>
+
+<hr class="my-4">
+
+<section>
+  <h2 class="text-primary mb-4">Confirmation Log</h2>
+
+  <% unless recent_audit_logs.any? %>
+    <p>No items found.</p>
+  <% else %>
+    <div class="row">
+      <% recent_audit_logs.each do |audit_log| %>
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="card text-white bg-primary">
+            <div class="card-body">
+              <h5 class="card-title text-warning"><%= audit_log.user.full_name %></h5>
+
+              <dl class="card-text">
+                <dt>Week Starting</dt>
+                <dd><%= audit_log.start_date %></dd>
+
+                <dt>Confirmed At</dt>
+                <dd><%= audit_log.end_date || audit_log.status.titleize %></dd>
+
+                <dt>Status</dt>
+                <dd><%= audit_log.status.titleize %></dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</section>

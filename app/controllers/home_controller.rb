@@ -2,6 +2,9 @@
 
 class HomeController < ApplicationController
   def index
-    @submitted_posts = Post.submitted.includes(:user) if current_user.admin?
+    if current_user.admin?
+      @submitted_posts = Post.submitted.includes(:user)
+      @recent_audit_logs = AuditLog.last(10)
+    end
   end
 end
