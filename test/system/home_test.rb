@@ -19,6 +19,13 @@ class HomeTest < ApplicationSystemTestCase
     assert_no_selector "h2", text: "Confirmation Log"
   end
 
+  test "user confirming an audit log" do
+    sign_in users(:user)
+    visit root_url
+    page.accept_confirm { click_on "Confirm" }
+    assert_text "Audit log was successfully updated"
+  end
+
   test "admin visiting the index" do
     sign_in admin_users(:admin)
     visit root_url

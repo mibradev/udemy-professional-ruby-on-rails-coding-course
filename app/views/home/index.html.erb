@@ -1,3 +1,5 @@
 <% if current_user.admin? %>
   <%= render "admin_index", submitted_posts: @submitted_posts, recent_audit_logs: @recent_audit_logs %>
+<% else %>
+  <%= render "user_index", pending_audit_logs: @pending_audit_logs %>
 <% end %>

@@ -1,0 +1,21 @@
+<section>
+  <h2 class="text-primary mb-4">Pending your Confirmation</h2>
+
+  <% unless pending_audit_logs.any? %>
+    <p>No items found.</p>
+  <% else %>
+    <div class="row">
+      <% pending_audit_logs.each do |audit_log| %>
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="card text-white bg-primary">
+            <div class="card-body">
+              <h5 class="card-title">The Week of: <span class="text-warning"><%= audit_log.start_date %></span></h5>
+              <p class="card-text">Confirm that you did not perform any overtime for this week.</p>
+              <%= link_to "Confirm", audit_log_path(audit_log, audit_log: { status: "confirmed" }), method: :patch, data: { confirm: "Are you sure you want to confirm that you did not perform any overtime?" }, class: "btn btn-success btn-block" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</section>

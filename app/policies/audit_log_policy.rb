@@ -6,19 +6,11 @@ class AuditLogPolicy < ApplicationPolicy
   end
 
   def show?
-    user.admin?
-  end
-
-  def create?
-    user.admin?
+    user.admin? || record.user_id == user.id
   end
 
   def update?
-    user.admin?
-  end
-
-  def destroy?
-    user.admin?
+    record.pending? && record.user_id == user.id
   end
 
   class Scope < Scope

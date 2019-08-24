@@ -6,99 +6,93 @@ class AuditLogsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    sign_in admin_users(:admin)
+    @user1 = users(:user)
+    @user2 = users(:abdullah)
+    @admin = admin_users(:admin)
+  end
+
+  test "should not get new" do
+    sign_in @admin
+    assert_raises(Pundit::NotAuthorizedError) do
+      get new_audit_log_url
+    end
+  end
+
+  test "should not create audit log" do
+    sign_in @admin
+    assert_raises(Pundit::NotAuthorizedError) do
+      post audit_logs_url, params: audit_log_params(audit_logs(:pending))
+    end
+  end
+
+  test "should not create invalid audit log" do
+    sign_in @admin
+    assert_raises(Pundit::NotAuthorizedError) do
+      post audit_logs_url, params: audit_log_params(AuditLog.new(status: nil))
+    end
+  end
+
+  test "should not get edit" do
+    sign_in @admin
+    assert_raises(Pundit::NotAuthorizedError) do
+      get edit_audit_log_url(audit_logs(:pending))
+    end
+  end
+
+  test "should not update invalid audit log" do
+    sign_in @admin
+    @audit_log = audit_logs(:pending)
+    assert_raises(Pundit::NotAuthorizedError) do
+      patch audit_log_url(@audit_log), params: audit_log_params(AuditLog.new(status: nil))
+    end
+  end
+
+  test "should not update audit log" do
+    sign_in @admin
+    @audit_log = audit_logs(:pending)
+    assert_raises(Pundit::NotAuthorizedError) do
+      patch audit_log_url(@audit_log), params: audit_log_params(@audit_log)
+    end
+  end
+
+  test "should not destroy audit log" do
+    sign_in @admin
+    assert_raises(Pundit::NotAuthorizedError) do
+      delete audit_log_url(audit_logs(:pending))
+    end
+  end
+
+  test "user should not get index" do
+    sign_in @user1
+    assert_raises(Pundit::NotAuthorizedError) do
+      get audit_logs_url
+    end
+  end
+
+  test "user should not show other user's audit log" do
+    sign_in @user2
+    assert_raises(Pundit::NotAuthorizedError) do
+      get audit_log_url(@user1.audit_logs.first)
+    end
+  end
+
+  test "user should update audit log" do
+    @audit_log = audit_logs(:pending)
+    sign_in @user1
+    patch audit_log_url(@audit_log), params: audit_log_params(AuditLog.new(status: "confirmed"))
+    assert_redirected_to audit_log_url(@audit_log)
   end
 
   test "admin should get index" do
+    sign_in @admin
     get audit_logs_url
     assert_response :success
   end
 
-  test "admin should get new" do
-    get new_audit_log_url
+  test "admin should show audit_log" do
+    sign_in @admin
+    get audit_log_url(@user1.audit_logs.first)
     assert_response :success
-  end
-
-  test "admin should create audit log" do
-    assert_difference("AuditLog.count") do
-      post audit_logs_url, params: audit_log_params(audit_logs(:pending))
-    end
-    assert_redirected_to audit_log_url(AuditLog.last)
-  end
-
-  test "admin should not create invalid audit log" do
-    assert_no_difference("AuditLog.count") do
-      post audit_logs_url, params: audit_log_params(AuditLog.new(status: nil))
-    end
-    assert_equal audit_logs_path, path
-  end
-
-  test "admin should show audit log" do
-    get audit_log_url(audit_logs(:pending))
-    assert_response :success
-  end
-
-  test "admin should get edit" do
-    get edit_audit_log_url(audit_logs(:pending))
-    assert_response :success
-  end
-
-  test "admin should update audit log" do
-    @audit_log = audit_logs(:pending)
-    patch audit_log_url(@audit_log), params: audit_log_params(@audit_log)
-    assert_redirected_to audit_log_url(@audit_log)
-  end
-
-  test "admin should not update invalid audit log" do
-    @audit_log = audit_logs(:pending)
-    patch audit_log_url(@audit_log), params: audit_log_params(AuditLog.new(status: nil))
-    assert_equal audit_log_path(@audit_log), path
-  end
-
-  test "admin should destroy audit log" do
-    assert_difference("AuditLog.count", -1) do
-      delete audit_log_url(audit_logs(:pending))
-    end
-    assert_redirected_to audit_logs_url
-  end
-
-  test "user should not have access" do
-    @audit_log = audit_logs(:pending)
-
-    assert_raises(Pundit::NotAuthorizedError) do
-      sign_in users(:user)
-      get audit_logs_url
-    end
-
-    assert_raises(Pundit::NotAuthorizedError) do
-      sign_in users(:user)
-      get audit_log_url(@audit_log)
-    end
-
-    assert_raises(Pundit::NotAuthorizedError) do
-      sign_in users(:user)
-      get new_audit_log_url
-    end
-
-    assert_raises(Pundit::NotAuthorizedError) do
-      sign_in users(:user)
-      get edit_audit_log_url(@audit_log)
-    end
-
-    assert_raises(Pundit::NotAuthorizedError) do
-      sign_in users(:user)
-      post audit_logs_url
-    end
-
-    assert_raises(Pundit::NotAuthorizedError) do
-      sign_in users(:user)
-      patch audit_log_url(@audit_log)
-    end
-
-    assert_raises(Pundit::NotAuthorizedError) do
-      sign_in users(:user)
-      delete audit_log_url(@audit_log)
-    end
   end
 
   private
