@@ -52,4 +52,11 @@ class PostTest < ActiveSupport::TestCase
   test "should be rejected" do
     assert posts(:rejected).rejected?
   end
+
+  test "should update audit log after save" do
+    @audit_log = @post.audit_logs.pending.where(start_date: (@post.date - 7.days)..@post.date).last
+    assert @audit_log.pending?
+    @post.save
+    assert @audit_log.reload.confirmed?
+  end
 end

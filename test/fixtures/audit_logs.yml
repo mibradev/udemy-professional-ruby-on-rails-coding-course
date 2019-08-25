@@ -1,8 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 pending:
+  start_date: <%= 7.days.ago %>
   user: user
 
 complete:
+  start_date: <%= 7.days.ago %>
+  end_date: <%= Date.current %>
   status: 1
   user: user

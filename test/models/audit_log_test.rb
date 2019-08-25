@@ -23,7 +23,6 @@ class AuditLogTest < ActiveSupport::TestCase
   end
 
   test "start date should have default value" do
-    assert_equal 6.days.ago.to_date, @audit_log.start_date
     assert_equal 6.days.ago.to_date, AuditLog.new.start_date
   end
 
