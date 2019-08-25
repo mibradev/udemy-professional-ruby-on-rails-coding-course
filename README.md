@@ -14,7 +14,6 @@ A Ruby on Rails app based on [Professional Rails Code Along Course](https://www.
 
 * Clone the app
 * Install the requirements
-* Set **RAILS_USER_PASSWORD** environment variable
 * Run `bundle install`
 * Run `yarn install`
 * Run `rails db:create`

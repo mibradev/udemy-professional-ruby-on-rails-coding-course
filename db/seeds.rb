@@ -11,14 +11,14 @@
 users = [
   User.create!(
     email: "user1@example.com",
-    password: ENV.fetch("RAILS_USER_PASSWORD"),
+    password: Rails.application.credentials[Rails.env.to_sym][:user_password],
     first_name: "First",
     last_name: "User",
     phone: "5005550006"
   ),
   User.create!(
     email: "user2@example.com",
-    password: ENV.fetch("RAILS_USER_PASSWORD"),
+    password: Rails.application.credentials[Rails.env.to_sym][:user_password],
     first_name: "Second",
     last_name: "User",
     phone: "5005550006"
@@ -27,7 +27,7 @@ users = [
 
 AdminUser.create!(
   email: "admin@example.com",
-  password: ENV.fetch("RAILS_USER_PASSWORD"),
+  password: Rails.application.credentials[Rails.env.to_sym][:user_password],
   first_name: "First",
   last_name: "Admin",
   phone: "5005550006"

@@ -2,7 +2,7 @@
 
 admin:
   email: admin@example.com
-  encrypted_password: <%= ENV.fetch('RAILS_USER_PASSWORD') %>
+  encrypted_password: <%= Rails.application.credentials[Rails.env.to_sym][:user_password] %>
   first_name: First
   last_name: Admin
   phone: '5005550006'
