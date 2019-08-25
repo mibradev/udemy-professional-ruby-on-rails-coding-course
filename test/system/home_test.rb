@@ -26,6 +26,13 @@ class HomeTest < ApplicationSystemTestCase
     assert_text "Audit log was successfully updated"
   end
 
+  test "user requesting overtime" do
+    sign_in users(:user)
+    visit root_url
+    click_on "Request Overtime"
+    assert_current_path new_post_path
+  end
+
   test "admin visiting the index" do
     sign_in admin_users(:admin)
     visit root_url

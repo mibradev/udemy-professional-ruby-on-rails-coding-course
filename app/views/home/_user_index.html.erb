@@ -1,5 +1,13 @@
 <section>
-  <h2 class="text-primary mb-4">Pending your Confirmation</h2>
+  <div class="row mb-4">
+    <div class="col">
+      <h2 class="text-primary mb-0">Pending your Confirmation</h2>
+    </div>
+
+    <div class="col text-right">
+      <%= link_to "Request Overtime", new_post_path, class: "btn btn-primary" %>
+    </div>
+  </div>
 
   <% unless pending_audit_logs.any? %>
     <p>No items found.</p>
