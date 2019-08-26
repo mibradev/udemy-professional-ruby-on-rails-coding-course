@@ -23,10 +23,18 @@ install:
   - bundle install
   - yarn install
 
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+
 script:
   - RAILS_ENV=test bundle exec rails db:create
   - bundle exec rails test
   - bundle exec rails test:system
+
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 
 deploy:
   provider: heroku
