@@ -36,5 +36,5 @@ deploy:
   on:
     repo: mibradev/udemy-professional-ruby-on-rails-coding-course
 
-  notifications:
-    email: false
+notifications:
+  email: false
