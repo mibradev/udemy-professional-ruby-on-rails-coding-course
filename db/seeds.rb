@@ -8,19 +8,19 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-users = [
-  User.create!(
-    email: "user1@example.com",
+employees = [
+  EmployeeUser.create!(
+    email: "employee1@example.com",
     password: Rails.application.credentials[Rails.env.to_sym][:user_password],
     first_name: "First",
-    last_name: "User",
+    last_name: "Employee",
     phone: "5005550006"
   ),
-  User.create!(
-    email: "user2@example.com",
+  EmployeeUser.create!(
+    email: "employee2@example.com",
     password: Rails.application.credentials[Rails.env.to_sym][:user_password],
     first_name: "Second",
-    last_name: "User",
+    last_name: "Employee",
     phone: "5005550006"
   )
 ]
@@ -34,7 +34,7 @@ AdminUser.create!(
 )
 
 (1..100).each do |i|
-  users.sample.posts.create!(
+  employees.sample.posts.create!(
     overtime_request: rand(0.1..20.0),
     date: Date.current,
     rationale: "Post #{i} rationale.",
@@ -43,5 +43,5 @@ AdminUser.create!(
 end
 
 100.times do |i|
-  users.sample.audit_logs.create!
+  employees.sample.audit_logs.create!
 end

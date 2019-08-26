@@ -4,8 +4,8 @@ require "application_system_test_case"
 
 module Admin
   class DashboardTest < ApplicationSystemTestCase
-    test "user visiting admin dashboard" do
-      sign_in users(:user)
+    test "employee visiting admin dashboard" do
+      sign_in employee_users(:ahmad)
       visit root_url
       click_on "Options"
       assert_no_selector "a", text: "Admin Dashboard"

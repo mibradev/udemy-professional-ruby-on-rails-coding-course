@@ -15,12 +15,12 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "user should get index with his posts" do
-    @user = users(:user)
-    sign_in @user
+  test "employee should get index with his posts" do
+    @employee = employee_users(:ahmad)
+    sign_in @employee
     get posts_url
     assert_response :success
-    assert_equal @user.posts.length, @controller.instance_variable_get("@posts").length
+    assert_equal @employee.posts.length, @controller.instance_variable_get("@posts").length
   end
 
   test "admin should get new" do
@@ -29,8 +29,8 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "user should get new" do
-    sign_in users(:user)
+  test "employee should get new" do
+    sign_in employee_users(:ahmad)
     get new_post_url
     assert_response :success
   end
@@ -44,19 +44,19 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to post_url(Post.last)
   end
 
-  test "user should create post" do
+  test "employee should create post" do
     @post = posts(:submitted)
-    sign_in users(:user)
+    sign_in employee_users(:ahmad)
     assert_difference("Post.count") do
       post posts_url, params: post_params(@post)
     end
     assert_redirected_to post_url(Post.last)
   end
 
-  test "user should not create post with changed status" do
+  test "employee should not create post with changed status" do
     @post = posts(:submitted)
     @post.status = "approved"
-    sign_in users(:user)
+    sign_in employee_users(:ahmad)
     assert_difference("Post.count") do
       post posts_url, params: post_params(@post)
     end
@@ -64,7 +64,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should not create post with invalid params" do
-    sign_in users(:user)
+    sign_in employee_users(:ahmad)
     assert_no_difference("Post.count") do
       post posts_url, params: post_params(Post.new)
     end
@@ -77,14 +77,14 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "user should show his post" do
-    sign_in users(:user)
+  test "employee should show his post" do
+    sign_in employee_users(:ahmad)
     get post_url(posts(:submitted))
     assert_response :success
   end
 
-  test "user should not show other user's post" do
-    sign_in users(:user)
+  test "employee should not show other employee's post" do
+    sign_in employee_users(:ahmad)
     assert_raises(Pundit::NotAuthorizedError) do
       get post_url(posts(:submitted_by_abdullah))
     end
@@ -96,21 +96,21 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "user should edit his post" do
-    sign_in users(:user)
+  test "employee should edit his post" do
+    sign_in employee_users(:ahmad)
     get edit_post_url(posts(:submitted))
     assert_response :success
   end
 
-  test "user should not edit other user's post" do
-    sign_in users(:user)
+  test "employee should not edit other employee's post" do
+    sign_in employee_users(:ahmad)
     assert_raises(Pundit::NotAuthorizedError) do
       get edit_post_url(posts(:submitted_by_abdullah))
     end
   end
 
-  test "user should not edit an approved post" do
-    sign_in users(:user)
+  test "employee should not edit an approved post" do
+    sign_in employee_users(:ahmad)
     assert_raises(Pundit::NotAuthorizedError) do
       get edit_post_url(posts(:approved))
     end
@@ -118,7 +118,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
 
   test "should not update post with invalid params" do
     @post = posts(:submitted)
-    sign_in users(:user)
+    sign_in employee_users(:ahmad)
     patch post_url(@post), params: post_params(Post.new)
     assert_equal post_path(@post), path
   end
@@ -130,33 +130,33 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to post_url(@post)
   end
 
-  test "user should update his post" do
+  test "employee should update his post" do
     @post = posts(:submitted)
-    sign_in users(:user)
+    sign_in employee_users(:ahmad)
     patch post_url(@post), params: post_params(@post)
     assert_redirected_to post_url(@post)
   end
 
-  test "user should not update other user's post" do
+  test "employee should not update other employee's post" do
     @post = posts(:submitted_by_abdullah)
-    sign_in users(:user)
+    sign_in employee_users(:ahmad)
     assert_raises(Pundit::NotAuthorizedError) do
       patch post_url(@post), params: post_params(@post)
     end
   end
 
-  test "user should not update an approved post" do
+  test "employee should not update an approved post" do
     @post = posts(:approved)
-    sign_in users(:user)
+    sign_in employee_users(:ahmad)
     assert_raises(Pundit::NotAuthorizedError) do
       patch post_url(@post), params: post_params(@post)
     end
   end
 
-  test "user should not update post status" do
+  test "employee should not update post status" do
     @post = posts(:submitted)
     @post.status = "approved"
-    sign_in users(:user)
+    sign_in employee_users(:ahmad)
     patch post_url(@post), params: post_params(@post)
     assert @post.reload.submitted?
   end
@@ -169,23 +169,23 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to posts_url
   end
 
-  test "user should destroy his post" do
-    sign_in users(:user)
+  test "employee should destroy his post" do
+    sign_in employee_users(:ahmad)
     assert_difference("Post.count", -1) do
       delete post_url(posts(:submitted))
     end
     assert_redirected_to posts_url
   end
 
-  test "user should not destroy other user's post" do
-    sign_in users(:user)
+  test "employee should not destroy other employee's post" do
+    sign_in employee_users(:ahmad)
     assert_raises(Pundit::NotAuthorizedError) do
       delete post_url(posts(:submitted_by_abdullah))
     end
   end
 
-  test "user should not destroy an approved post" do
-    sign_in users(:user)
+  test "employee should not destroy an approved post" do
+    sign_in employee_users(:ahmad)
     assert_raises(Pundit::NotAuthorizedError) do
       delete post_url(posts(:approved))
     end

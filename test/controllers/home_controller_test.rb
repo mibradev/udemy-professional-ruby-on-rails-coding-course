@@ -5,8 +5,8 @@ require "test_helper"
 class HomeControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
-  test "user should get index" do
-    sign_in users(:user)
+  test "employee should get index" do
+    sign_in employee_users(:ahmad)
     get root_url
     assert_response :success
   end

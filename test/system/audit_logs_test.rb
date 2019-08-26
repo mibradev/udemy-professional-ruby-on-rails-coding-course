@@ -5,7 +5,7 @@ require "application_system_test_case"
 class AuditLogsTest < ApplicationSystemTestCase
   setup do
     @audit_log = audit_logs(:pending)
-    @user = users(:user)
+    @employee = employee_users(:ahmad)
     @admin = admin_users(:admin)
   end
 

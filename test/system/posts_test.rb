@@ -8,7 +8,7 @@ class PostsTest < ApplicationSystemTestCase
   end
 
   test "visiting the index" do
-    sign_in users(:user)
+    sign_in employee_users(:ahmad)
     visit root_url
     find("nav").click_link "Time Entries"
     assert_selector "h2", text: "Posts"
@@ -27,7 +27,7 @@ class PostsTest < ApplicationSystemTestCase
   end
 
   test "visiting the index with no posts found" do
-    sign_in users(:user)
+    sign_in employee_users(:ahmad)
     Post.delete_all
     visit posts_url
     assert_selector "h2", text: "Posts"
@@ -36,7 +36,7 @@ class PostsTest < ApplicationSystemTestCase
   end
 
   test "showing the post" do
-    sign_in users(:user)
+    sign_in employee_users(:ahmad)
     visit posts_url
     click_on "Show", match: :first
     assert_selector "h2", text: "Post ##{@post.id}"
@@ -51,7 +51,7 @@ class PostsTest < ApplicationSystemTestCase
   end
 
   test "creating a post" do
-    sign_in users(:user)
+    sign_in employee_users(:ahmad)
     visit posts_url
     click_on "New Post"
 
@@ -75,7 +75,7 @@ class PostsTest < ApplicationSystemTestCase
   end
 
   test "updating a post" do
-    sign_in users(:user)
+    sign_in employee_users(:ahmad)
     visit posts_url
     click_on "Edit", match: :first
 
@@ -106,7 +106,7 @@ class PostsTest < ApplicationSystemTestCase
   end
 
   test "unable to update an approved post" do
-    sign_in users(:user)
+    sign_in employee_users(:ahmad)
     Post.where.not(status: "approved").delete_all
 
     visit posts_url
@@ -117,21 +117,21 @@ class PostsTest < ApplicationSystemTestCase
   end
 
   test "destroying a post" do
-    sign_in users(:user)
+    sign_in employee_users(:ahmad)
     visit posts_url
     page.accept_confirm { click_on "Delete", match: :first }
     assert_text "Post was successfully destroyed"
   end
 
   test "destroying a post from show" do
-    sign_in users(:user)
+    sign_in employee_users(:ahmad)
     visit post_url(@post)
     page.accept_confirm { click_on "Delete" }
     assert_text "Post was successfully destroyed"
   end
 
   test "unable to destroy an approved post" do
-    sign_in users(:user)
+    sign_in employee_users(:ahmad)
     Post.where.not(status: "approved").delete_all
 
     visit posts_url
@@ -142,7 +142,7 @@ class PostsTest < ApplicationSystemTestCase
   end
 
   test "navigating between show and edit" do
-    sign_in users(:user)
+    sign_in employee_users(:ahmad)
     visit post_url(@post)
     assert_current_path post_path(@post)
     click_on "Edit"

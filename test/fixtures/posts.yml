@@ -3,21 +3,21 @@
 submitted:
   overtime_request: <%= rand(0.1..20.0) %>
   date: <%= Date.current %>
-  rationale: submitted by user
-  user: user
+  rationale: submitted by employee
+  user: ahmad
 
 approved:
   overtime_request: <%= rand(0.1..20.0) %>
   date: <%= Date.current %>
-  rationale: approved for user
-  user: user
+  rationale: approved for employee
+  user: ahmad
   status: 1
 
 rejected:
   overtime_request: <%= rand(0.1..20.0) %>
   date: <%= Date.current %>
-  rationale: rejected for user
-  user: user
+  rationale: rejected for employee
+  user: ahmad
   status: 2
 
 submitted_by_abdullah:

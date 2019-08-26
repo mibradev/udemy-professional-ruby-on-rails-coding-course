@@ -6,8 +6,8 @@ module Admin
   class PostsControllerTest < ActionDispatch::IntegrationTest
     include Devise::Test::IntegrationHelpers
 
-    test "user should not get index" do
-      sign_in users(:user)
+    test "employee should not get index" do
+      sign_in employee_users(:ahmad)
       get admin_root_url
       assert_redirected_to root_url
 

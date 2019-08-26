@@ -6,10 +6,3 @@ user:
   first_name: First
   last_name: User
   phone: '5005550006'
-
-abdullah:
-  email: abdullah@example.com
-  encrypted_password: <%= Rails.application.credentials[Rails.env.to_sym][:user_password] %>
-  first_name: Second
-  last_name: User
-  phone: '5005550006'

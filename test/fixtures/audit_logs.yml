@@ -2,10 +2,10 @@
 
 pending:
   start_date: <%= 7.days.ago %>
-  user: user
+  user: ahmad
 
 complete:
   start_date: <%= 7.days.ago %>
   end_date: <%= Date.current %>
   status: 1
-  user: user
+  user: ahmad

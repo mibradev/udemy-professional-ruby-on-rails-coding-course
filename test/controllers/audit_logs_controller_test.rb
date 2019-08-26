@@ -6,8 +6,8 @@ class AuditLogsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    @user1 = users(:user)
-    @user2 = users(:abdullah)
+    @employee1 = employee_users(:ahmad)
+    @employee2 = employee_users(:abdullah)
     @admin = admin_users(:admin)
   end
 
@@ -62,23 +62,23 @@ class AuditLogsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "user should not get index" do
-    sign_in @user1
+  test "employee should not get index" do
+    sign_in @employee1
     assert_raises(Pundit::NotAuthorizedError) do
       get audit_logs_url
     end
   end
 
-  test "user should not show other user's audit log" do
-    sign_in @user2
+  test "employee should not show other user's audit log" do
+    sign_in @employee2
     assert_raises(Pundit::NotAuthorizedError) do
-      get audit_log_url(@user1.audit_logs.first)
+      get audit_log_url(@employee1.audit_logs.first)
     end
   end
 
-  test "user should update audit log" do
+  test "employee should update audit log" do
     @audit_log = audit_logs(:pending)
-    sign_in @user1
+    sign_in @employee1
     patch audit_log_url(@audit_log), params: audit_log_params(AuditLog.new(status: "confirmed"))
     assert_redirected_to audit_log_url(@audit_log)
   end
@@ -91,7 +91,7 @@ class AuditLogsControllerTest < ActionDispatch::IntegrationTest
 
   test "admin should show audit_log" do
     sign_in @admin
-    get audit_log_url(@user1.audit_logs.first)
+    get audit_log_url(@employee1.audit_logs.first)
     assert_response :success
   end
 

@@ -10,8 +10,8 @@ class HomeTest < ApplicationSystemTestCase
     assert_no_selector "nav"
   end
 
-  test "user visiting the index" do
-    sign_in users(:user)
+  test "employee visiting the index" do
+    sign_in employee_users(:ahmad)
     visit root_url
     find("nav").click_link "Home"
     assert_selector "h1", text: "Time Tracker"
@@ -19,15 +19,15 @@ class HomeTest < ApplicationSystemTestCase
     assert_no_selector "h2", text: "Confirmation Log"
   end
 
-  test "user confirming an audit log" do
-    sign_in users(:user)
+  test "employee confirming an audit log" do
+    sign_in employee_users(:ahmad)
     visit root_url
     page.accept_confirm { click_on "Confirm" }
     assert_text "Audit log was successfully updated"
   end
 
-  test "user requesting overtime" do
-    sign_in users(:user)
+  test "employee requesting overtime" do
+    sign_in employee_users(:ahmad)
     visit root_url
     click_on "Request Overtime"
     assert_current_path new_post_path
@@ -55,7 +55,7 @@ class HomeTest < ApplicationSystemTestCase
   end
 
   test "logging out" do
-    sign_in users(:user)
+    sign_in employee_users(:ahmad)
     visit root_url
     click_on "Options"
     click_on "Logout"
