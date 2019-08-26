@@ -4,6 +4,7 @@ A Ruby on Rails app based on [Professional Rails Code Along Course](https://www.
 
 [![Build Status](https://travis-ci.org/mibradev/udemy-professional-ruby-on-rails-coding-course.svg?branch=master)](https://travis-ci.org/mibradev/udemy-professional-ruby-on-rails-coding-course)
 [![Maintainability](https://api.codeclimate.com/v1/badges/50c4a4c1f6a6b131868d/maintainability)](https://codeclimate.com/github/mibradev/udemy-professional-ruby-on-rails-coding-course/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/50c4a4c1f6a6b131868d/test_coverage)](https://codeclimate.com/github/mibradev/udemy-professional-ruby-on-rails-coding-course/test_coverage)
 
 ### Requirements
 
