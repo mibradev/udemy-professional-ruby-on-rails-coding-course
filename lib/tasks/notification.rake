@@ -7,6 +7,8 @@ namespace :notification do
 
     if Time.now.sunday?
       EmployeeUser.all.each do |employee|
+        employee.audit_logs.create!
+
         sms = SmsService.send_sms(
           "Please log into the overtime management dashboard to request overtime or confirm your hours for last week: http://localhost:3000",
           to: employee.phone
