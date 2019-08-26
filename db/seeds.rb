@@ -33,15 +33,15 @@ AdminUser.create!(
   phone: "5005550006"
 )
 
-(1..100).each do |i|
-  employees.sample.posts.create!(
-    overtime_request: rand(0.1..20.0),
-    date: Date.current,
-    rationale: "Post #{i} rationale.",
-    status: Post.statuses.keys.sample
-  )
-end
+20.days.ago.to_date.step(6.days.ago.to_date, 7) do |start_date|
+  employees[0].audit_logs.create!(start_date: start_date)
+  employees[1].audit_logs.create!(start_date: start_date)
 
-100.times do |i|
-  employees.sample.audit_logs.create!
+  employees.each do |employee|
+    employee.posts.create!(
+      overtime_request: rand(0.1..20.0),
+      date: start_date.ago(1.day),
+      rationale: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    )
+  end
 end
