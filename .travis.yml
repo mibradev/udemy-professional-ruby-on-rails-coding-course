@@ -30,8 +30,7 @@ before_script:
 
 script:
   - RAILS_ENV=test bundle exec rails db:create
-  - bundle exec rails test
-  - bundle exec rails test:system
+  - COVERAGE=true bundle exec rails test:system test
 
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
