@@ -1,0 +1,40 @@
+dist: bionic
+language: ruby
+rvm: 2.6
+
+cache:
+  bundler: true
+  directories:
+    - node_modules
+    - vendor/bundle
+  yarn: true
+
+addons:
+  chrome: stable
+  postgresql: 10
+
+before_install:
+  - gem update --system --no-document
+  - gem --version
+  - gem install bundler --no-document
+  - bundler --version
+
+install:
+  - bundle install
+  - yarn install
+
+script:
+  - RAILS_ENV=test bundle exec rails db:create
+  - bundle exec rails test
+  - bundle exec rails test:system
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: YHPWqeDz4yhhSsjs4cshGV2hJpq97vNjpKoBNRKd1uHfkCh/+00Lowd+aouyBfORIBgzuJmyPicGXmD1PcDvSSMK/I0hfA0w7Ji2XdVMyguu4Yl+f8xdjOXWfcykvTl2rQjhQNo/V2EPHM9sVR/OlCCHaRAKbPUOQ4Oygt8bB6XVZ8CRS7soTpfrE5uMIJXYCYOSrWiwuGbAyS/SrDOgkkOX1gOqnsGuSGzAwF1HV8+3cjqeXh2YAfWSkzCCKBghnSQhuafRFx5TywrX81vFe3pmNLpz8OHRcrsKg/7vzfCAFcr/059lwQ9GOwJ/VsOYHFMIJoPOlFJ3uwlI8n863wd+GpdDLdqmlDiYB500mIHoSTBl/O12AMXA5gBTYGPcqwWOgKxZda8eUtT9cSZdaU/nmfCi0lO8DMWHQJ6MUFT2Ym09aVUfdqZus3ayh+y++Q0RpCOSr5gbh4RHOYL9W0s4NwAuwVN26RZ9fFoErxlgz3wevmQ2jK3KMssvKHqSjcWclq4nC1GjPKdijGuZH2cgKUdtyohsxjtcP+C028Ie4qpJ9zlmk80aJjC9ej1abyzQbBBj0MLUc9Q5cz99x85tMQ25mW/Uua2rmJMUB52j+QNaF4/otymzVPK5yrHfFg580Ke11ABnmZYfJ9+LtZwzhH23NpnIj1JF39+af0A=
+  app: mibradev-overtime
+  on:
+    repo: mibradev/udemy-professional-ruby-on-rails-coding-course
+
+  notifications:
+    email: false
