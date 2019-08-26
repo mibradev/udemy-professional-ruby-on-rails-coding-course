@@ -5,6 +5,7 @@ class AuditLog < ApplicationRecord
   validates :start_date, presence: true
 
   after_initialize :set_defaults
+  before_update :set_end_date, if: :confirmed?
 
   belongs_to :user
 
@@ -13,5 +14,9 @@ class AuditLog < ApplicationRecord
   private
     def set_defaults
       self.start_date ||= 6.days.ago.to_date
+    end
+
+    def set_end_date
+      self.end_date = Date.current
     end
 end

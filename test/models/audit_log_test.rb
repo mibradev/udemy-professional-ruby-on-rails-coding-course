@@ -32,6 +32,11 @@ class AuditLogTest < ActiveSupport::TestCase
     assert_equal 1.days.ago.to_date, AuditLog.new(start_date: 1.days.ago.to_date).start_date
   end
 
+  test "should have end date after confirmation" do
+    @audit_log.confirmed!
+    assert_equal Date.current, @audit_log.end_date
+  end
+
   test "should have user" do
     @audit_log.user_id = nil
     assert_not @audit_log.valid?
