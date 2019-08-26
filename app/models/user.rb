@@ -17,6 +17,10 @@ class User < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
+  def employee?
+    type == "EmployeeUser"
+  end
+
   def admin?
     type == "AdminUser"
   end
