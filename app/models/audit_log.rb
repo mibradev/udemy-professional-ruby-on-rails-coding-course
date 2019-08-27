@@ -9,6 +9,7 @@ class AuditLog < ApplicationRecord
 
   belongs_to :user
 
+  scope :started_before, ->(post) { where(start_date: post.date.ago(7.days)..post.date) }
   enum status: [:pending, :confirmed]
 
   private
