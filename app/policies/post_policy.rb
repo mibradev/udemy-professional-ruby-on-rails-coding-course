@@ -10,7 +10,7 @@ class PostPolicy < ApplicationPolicy
   end
 
   def create?
-    true
+    user.employee?
   end
 
   def update?
@@ -18,7 +18,7 @@ class PostPolicy < ApplicationPolicy
   end
 
   def destroy?
-    update?
+    record.user_id == user.id && !record.approved?
   end
 
   def change_status?
@@ -26,8 +26,7 @@ class PostPolicy < ApplicationPolicy
   end
 
   def permitted_attributes
-    params = [:overtime_request, :date, :rationale]
-    user.admin? ? params.push(:status) : params
+    user.admin? ? [:status] : [:overtime_request, :date, :rationale]
   end
 
   class Scope < Scope

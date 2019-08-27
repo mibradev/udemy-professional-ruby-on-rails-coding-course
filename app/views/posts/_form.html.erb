@@ -3,17 +3,17 @@
 
   <div class="field form-group">
     <%= form.label :overtime_request %>
-    <%= form.number_field :overtime_request, step: '0.01', class: 'form-control' %>
+    <%= form.number_field :overtime_request, step: '0.01', class: 'form-control', disabled: policy(post).change_status? %>
   </div>
 
   <div class="field form-group">
     <%= form.label :date %>
-    <%= form.date_field :date, class: 'form-control' %>
+    <%= form.date_field :date, class: 'form-control', disabled: policy(post).change_status? %>
   </div>
 
   <div class="field form-group">
     <%= form.label :rationale %>
-    <%= form.text_area :rationale, class: 'form-control' %>
+    <%= form.text_area :rationale, class: 'form-control', disabled: policy(post).change_status? %>
   </div>
 
   <% if policy(post).change_status? %>

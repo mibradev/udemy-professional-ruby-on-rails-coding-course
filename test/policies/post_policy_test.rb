@@ -17,9 +17,8 @@ class PostPolicyTest < ActiveSupport::TestCase
   end
 
   test "permitted attributes" do
-    params = [:overtime_request, :date, :rationale]
-    assert_equal params, PostPolicy.new(@employee1, @post).permitted_attributes
-    assert_equal params.push(:status), PostPolicy.new(@admin, @post).permitted_attributes
+    assert_equal [:overtime_request, :date, :rationale], PostPolicy.new(@employee1, @post).permitted_attributes
+    assert_equal [:status], PostPolicy.new(@admin, @post).permitted_attributes
   end
 
   test "index" do
@@ -36,7 +35,7 @@ class PostPolicyTest < ActiveSupport::TestCase
 
   test "create" do
     assert Pundit.policy!(@employee1, Post.new).create?
-    assert Pundit.policy!(@admin, Post.new).create?
+    assert_not Pundit.policy!(@admin, Post.new).create?
   end
 
   test "update" do
@@ -53,8 +52,8 @@ class PostPolicyTest < ActiveSupport::TestCase
     assert Pundit.policy!(@employee1, @post).destroy?
     assert_not Pundit.policy!(@employee1, @approved_post).destroy?
     assert_not Pundit.policy!(@employee2, @post).destroy?
-    assert Pundit.policy!(@admin, @post).destroy?
-    assert Pundit.policy!(@admin, @approved_post).destroy?
+    assert_not Pundit.policy!(@admin, @post).destroy?
+    assert_not Pundit.policy!(@admin, @approved_post).destroy?
   end
 
   test "change status" do

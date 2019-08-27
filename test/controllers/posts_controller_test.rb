@@ -5,10 +5,6 @@ require "test_helper"
 class PostsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
-  def post_params(post)
-    { post: { overtime_request: post.overtime_request, date: post.date, rationale: post.rationale } }
-  end
-
   test "admin should get index" do
     sign_in admin_users(:admin)
     get posts_url
@@ -23,10 +19,11 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert_equal @employee.posts.length, @controller.instance_variable_get("@posts").length
   end
 
-  test "admin should get new" do
+  test "admin should not get new" do
     sign_in admin_users(:admin)
-    get new_post_url
-    assert_response :success
+    assert_raises(Pundit::NotAuthorizedError) do
+      get new_post_url
+    end
   end
 
   test "employee should get new" do
@@ -35,13 +32,12 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "admin should create post" do
+  test "admin should not create post" do
     @post = posts(:submitted)
     sign_in admin_users(:admin)
-    assert_difference("Post.count") do
+    assert_raises(Pundit::NotAuthorizedError) do
       post posts_url, params: post_params(@post)
     end
-    assert_redirected_to post_url(Post.last)
   end
 
   test "employee should create post" do
@@ -125,9 +121,19 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
 
   test "admin should update post" do
     @post = posts(:submitted)
+    @post.status = "approved"
     sign_in admin_users(:admin)
     patch post_url(@post), params: post_params(@post)
     assert_redirected_to post_url(@post)
+    assert @post.reload.approved?
+  end
+
+  test "admin should update post status only" do
+    @post1 = posts(:submitted)
+    @post2 = posts(:submitted_by_abdullah)
+    sign_in admin_users(:admin)
+    patch post_url(@post1), params: post_params(@post2)
+    assert_equal @post1.attributes.except("status"), @post1.reload.attributes.except("status")
   end
 
   test "employee should update his post" do
@@ -161,12 +167,11 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert @post.reload.submitted?
   end
 
-  test "admin should destroy post" do
+  test "admin should not destroy post" do
     sign_in admin_users(:admin)
-    assert_difference("Post.count", -1) do
+    assert_raises(Pundit::NotAuthorizedError) do
       delete post_url(posts(:submitted))
     end
-    assert_redirected_to posts_url
   end
 
   test "employee should destroy his post" do
@@ -190,4 +195,9 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
       delete post_url(posts(:approved))
     end
   end
+
+  private
+    def post_params(post)
+      { post: { overtime_request: post.overtime_request, date: post.date, rationale: post.rationale, status: post.status } }
+    end
 end
