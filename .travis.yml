@@ -20,7 +20,7 @@ before_install:
   - bundler --version
 
 install:
-  - bundle install
+  - bundle install --jobs=3 --retry=3 --without=production
   - yarn install
 
 before_script:
