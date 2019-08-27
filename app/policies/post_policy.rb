@@ -2,11 +2,11 @@
 
 class PostPolicy < ApplicationPolicy
   def index?
-    true
+    user.employee? || user.admin?
   end
 
   def show?
-    user.admin? || record.user_id == user.id
+    user.admin? || (user.employee? && user.id == record.user_id)
   end
 
   def create?
@@ -14,11 +14,11 @@ class PostPolicy < ApplicationPolicy
   end
 
   def update?
-    user.admin? || (record.user_id == user.id && !record.approved?)
+    user.admin? || (user.employee? && user.id == record.user_id && !record.approved?)
   end
 
   def destroy?
-    record.user_id == user.id && !record.approved?
+    user.employee? && user.id == record.user_id && !record.approved?
   end
 
   def change_status?
@@ -26,7 +26,13 @@ class PostPolicy < ApplicationPolicy
   end
 
   def permitted_attributes
-    user.admin? ? [:status] : [:overtime_request, :date, :rationale]
+    if user.employee?
+      [:overtime_request, :date, :rationale]
+    elsif user.admin?
+      [:status]
+    else
+      []
+    end
   end
 
   class Scope < Scope

@@ -6,11 +6,11 @@ class AuditLogPolicy < ApplicationPolicy
   end
 
   def show?
-    user.admin? || record.user_id == user.id
+    user.admin? || (user.employee? && user.id == record.user_id)
   end
 
   def update?
-    record.pending? && record.user_id == user.id
+    user.employee? && user.id == record.user_id && record.pending?
   end
 
   class Scope < Scope
