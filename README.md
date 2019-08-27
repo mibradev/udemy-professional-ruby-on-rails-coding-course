@@ -13,14 +13,48 @@ A Ruby on Rails app based on [Professional Rails Code Along Course](https://www.
 * [PostgreSQL](https://www.postgresql.org/)
 * [Node.js](https://nodejs.org/en/)
 * [Yarn](https://yarnpkg.com/en/)
+* [Twilio](https://github.com/twilio/twilio-ruby) (for communicating with the Twilio API)
+* [New Relic](https://github.com/newrelic/rpm) (for performance management)
+* [Rollbar](https://github.com/rollbar/rollbar-gem) (for exception tracking)
 
 ### Usage
 
-* Clone the app
+* Clone the repo
 * Install the requirements
+* Setup rails credentials
 * Run `bundle install`
 * Run `yarn install`
 * Run `rails db:create`
-* Run `rails db:migrate`
+* Run `rails db:setup`
 * Run `rails server`
 * Visit http://localhost:3000/
+
+#### Rails Credentials Example
+
+```yaml
+default: &default
+  user_password: 123456
+  twilio:
+    account_sid: <your_account_sid>
+    auth_token: <your_auth_token>
+    number: +15005550006
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  rollbar_access_token: <your_access_token>
+  user_password: <your_password>
+  twilio:
+    account_sid: <your_account_sid>
+    auth_token: <your_auth_token>
+    number: <your_number>
+
+newrelic_license_key: <your_license_key>
+
+# Used as the base secret for all MessageVerifiers in Rails, including the one protecting cookies.
+secret_key_base: <your_key>
+```
